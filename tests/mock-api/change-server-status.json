@@ -1,0 +1,70 @@
+{
+  "id": "CB22C6E0428239348A6B70BAE0D67E66",
+  "cloudpanel_id": "79B706F",
+  "name": "My Server 2",
+  "description": "",
+  "creation_date": "2015-04-28T10:19:25+00:00",
+  "first_password": "Xh4yJ2b11u",
+  "status": {
+    "state": "POWERING_OFF",
+    "percent": null
+  },
+  "hardware": {
+    "fixed_instance_size_id": 0,
+    "vcore": 1,
+    "cores_per_processor": 1,
+    "ram": 2,
+    "hdds": [
+    {
+      "id": "1964560F458D95DE1884E443B00E33E7",
+      "size": 40,
+      "is_main": true
+    }
+    ]
+  },
+  "image": {
+    "id": "76EBF29C1250167C8754B2B3D1C05F68",
+    "name": "centos7-64std"
+  },
+  "dvd": null,
+  "snapshot": null,
+  "ips": [
+  {
+    "id": "01D4A802798AB77AA72DA2D05E1379E1",
+    "ip": "10.5.135.140",
+    "type": "IPV4",
+    "reverse_dns": null,
+    "firewall_policy": null,
+    "load_balancers": []
+  }
+  ],
+  "alerts": {
+    "critical": [
+    {
+      "type": "internal_ping",
+      "description": "CRITICAL - 10.5.135.153: rta nan, lost 100%",
+      "date": "2015-04-29 13:23:07"
+    },
+    {
+      "type": "cpu",
+      "description": "CHECK_NRPE: Socket timeout after 10 seconds.",
+      "date": "2015-04-30 08:24:11"
+    },
+    {
+      "type": "disk",
+      "description": "CHECK_NRPE: Socket timeout after 10 seconds.",
+      "date": "2015-04-30 08:25:55"
+    },
+    {
+      "type": "ram",
+      "description": "CHECK_NRPE: Socket timeout after 10 seconds.",
+      "date": "2015-04-30 08:27:40"
+    }
+    ]
+  },
+  "monitoring_policy": {
+    "id": "D0065C1A3EACCA186DAD7E11587C8C18",
+    "name": "My monitoring policy"
+  },
+  "private_networks": null
+}

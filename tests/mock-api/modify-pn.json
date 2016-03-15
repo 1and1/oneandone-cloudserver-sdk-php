@@ -1,0 +1,20 @@
+{
+  "id": "7786BE739765D4EC0635A90C19F44D91",
+  "cloudpanel_id": "pn90282_1",
+  "name": "Private Network",
+  "description": "Private network description",
+  "network_address": "192.168.1.0",
+  "subnet_mask": "255.255.255.0",
+  "state": "POWERED_ON",
+  "creation_date": "2015-04-06T23:48:38Z",
+  "servers": [
+    {
+      "id": "7786BE739765D4EC0635A90C19F44D91",
+      "name": "My server name"
+    },
+    {
+      "id": "7786BE739765D4EC0635A90C19F44D91",
+      "name": "My server name 2"
+    }
+  ]
+}

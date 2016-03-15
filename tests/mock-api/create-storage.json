@@ -1,0 +1,13 @@
+{
+  "id": "6AD2F180B7B666539EF75A02FE227084",
+  "size": 200,
+  "state": "CONFIGURING",
+  "description": "My shared storage test description",
+  "cloudpanel_id": "vid35780",
+  "size_used": "0.00",
+  "cifs_path": "\\\\\\My shared storage test",
+  "nfs_path": "/:My shared storage test",
+  "name": "My shared storage test",
+  "creation_date": "2015-05-06T08:33:25+00:00",
+  "servers": []
+}

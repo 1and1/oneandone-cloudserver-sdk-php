@@ -1,0 +1,16 @@
+{
+  "id": "81504C620D98BCEBAA5202D145203B4C",
+  "name": "Windows 2008R2 - 64 bits (Standard) + SQL Server 2012 (Standard)",
+  "os_image_type": "Standard",
+  "os_family": "Windows",
+  "os": "Windows",
+  "os_version": "Windows 2008R2",
+  "min_hdd_size": 40,
+  "architecture": 64,  
+  "licenses":[
+  "Windows",
+  "SQL Server"
+  ],
+  "automatic_installation": true,
+  "type": "IMAGE"
+}

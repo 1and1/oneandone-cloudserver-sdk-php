@@ -1,0 +1,29 @@
+{
+  "id": "4B86A3ACC4CEB7A89E012E49FC17F312",
+  "cloudpanel_id": "FE7ED7D",
+  "name": "My server",
+  "description": "My server description",
+  "creation_date": "2015-05-07T08:25:37+00:00",
+  "first_password": "Nm4gP97xSw",
+  "status": {
+    "state": "DEPLOYING",
+    "percent": 20
+  },
+  "hardware": {
+    "fixed_instance_size_id": 0,
+    "vcore": 2,
+    "cores_per_processor": 1,
+    "ram": 2,
+    "hdds": []
+  },
+  "image": {
+    "id": "07C170D67C8EC776933FCFF1C299C1C5",
+    "name": "w2012r2datacenter64min"
+  },
+  "dvd": null,
+  "snapshot": null,
+  "ips": null,
+  "alerts": [],
+  "monitoring_policy": null,
+  "private_networks": null
+} 

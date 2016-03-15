@@ -1,0 +1,19 @@
+{
+  "id": "A911FD8D77037426880A9774992FE2A6",
+  "cloudpanel_id": "vid38511",
+  "name": "My Shared Storage Test",
+  "description": null,
+  "size": 50,
+  "state": "CREATING",
+  "creation_date": "2015-04-06T23:48:38Z",
+  "size_used": "3.23",
+  "cifs_path": "\\vid25720.pre1.lan\\vid25720",
+  "nfs_path": "vid25720.pre1.lan:/vid25720",
+  "servers": [
+  {
+    "id": "C72CF0A681B0CCE7EC624DD194D585C6",
+    "name": "My Server",
+    "rights": "RW"
+  }
+  ]
+}

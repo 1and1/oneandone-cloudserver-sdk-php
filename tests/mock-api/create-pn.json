@@ -1,0 +1,11 @@
+{
+  "id": "403B689686A5B48F84E153C3F90E6B8A",
+  "name": "My Private Network Test",
+  "description": null,
+  "network_address": null,
+  "subnet_mask": null,
+  "state": "CONFIGURING",
+  "creation_date": "2015-05-04T08:35:12+00:00",
+  "servers": [],
+  "cloudpanel_id": "pn99AA4_2"
+}

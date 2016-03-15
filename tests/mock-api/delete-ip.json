@@ -1,0 +1,15 @@
+{
+  "id": "7C88E50FBC500A3D9D7F94E414255D6B",
+  "name": "034b011e.user",
+  "description": null,
+  "email": "user@arsys.es",
+  "state": "ACTIVE",
+  "creation_date": "2015-04-06T23:48:38Z",
+  "api": {
+    "active": true,
+    "key": "f03c5c76aa853ff710b879909d0d7e3b",
+    "allowed_ips": [
+    
+    ]
+  }
+}

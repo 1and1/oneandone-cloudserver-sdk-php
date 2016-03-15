@@ -1,0 +1,9 @@
+{
+  "id": "81504C620D98BCEBAA5202D145203B4B",
+  "name": "CentOS 7 - 64 bits ",
+  "os_family": "Linux",
+  "os": "CentOS",
+  "os_version": "CentOS 7",
+  "architecture": 64,
+  "type": "OS"
+}

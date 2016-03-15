@@ -1,0 +1,66 @@
+{
+  "id": "5DF232A92E9635249B8A4EB31C5B14F4",
+  "name": "My Monitoring Policy 1",
+  "description": null,
+  "default": 0,
+  "state": "CONFIGURING",
+  "creation_date": "2015-05-07T07:16:14+00:00",
+  "email": "",
+  "agent": true,
+  "servers": [],
+  "thresholds": {
+    "cpu": {
+      "warning": {
+        "value": 90,
+        "alert": false
+      },
+      "critical": {
+        "value": 95,
+        "alert": false
+      }
+    },
+    "ram": {
+      "warning": {
+        "value": 90,
+        "alert": false
+      },
+      "critical": {
+        "value": 95,
+        "alert": false
+      }
+    },
+    "disk": {
+      "warning": {
+        "value": 80,
+        "alert": false
+      },
+      "critical": {
+        "value": 90,
+        "alert": false
+      }
+    },
+    "transfer": {
+      "warning": {
+        "value": 1000,
+        "alert": false
+      },
+      "critical": {
+        "value": 2000,
+        "alert": false
+      }
+    },
+    "internal_ping": {
+      "warning": {
+        "value": 50,
+        "alert": false
+      },
+      "critical": {
+        "value": 100,
+        "alert": false
+      }
+    }
+  },
+  "ports": [],
+  "processes": [],
+  "cloudpanel_id": "mo8962D_2"
+}

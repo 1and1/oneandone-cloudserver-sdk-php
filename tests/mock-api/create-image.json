@@ -1,0 +1,30 @@
+{
+  "id": "E1817F51F5A9322116579150247E0004",
+  "name": "My image 2_20150506",
+  "os_family": "Windows",
+  "os": "WindowsDatacenter",
+  "os_version": "Windows2012R2",
+  "architecture": 64,
+  "os_image_type": "Personal",
+  "type": "MY_IMAGE",
+  "min_hdd_size": 40,
+  "licenses": [
+  {
+    "name": "Windows 2012 Standard"
+  }
+  ],
+  "cloudpanel_id": "ap8962D_253",
+  "state": "DEPLOYING",
+  "description": "My image 2 description",
+  "hdds": [
+  {
+    "id": "D0289C1FDF48628FE53335470EEC05DB",
+    "size": 40,
+    "is_main": true
+  }
+  ],
+  "server_id": "638ED28205B1AFD7ADEF569C725DD85F",
+  "frequency": "WEEKLY",
+  "num_images": 5,
+  "creation_date": "2015-05-06T08:04:41+00:00"
+}
