@@ -1,0 +1,52 @@
+{
+  "id": "D6F1239315503A1C44607BB04B3BD9C9",
+  "cloudpanel_id": "CC8C8F5",
+  "name": "My Server 2",
+  "description": "",
+  "creation_date": "2015-05-05T09:30:19+00:00",
+  "first_password": "Qa3xFdc4MW",
+  "status": {
+    "state": "DEPLOYING",
+    "percent": 15
+  },
+  "hardware": {
+    "fixed_instance_size_id": 0,
+    "vcore": 1,
+    "cores_per_processor": 1,
+    "ram": 2,
+    "hdds": [
+    {
+      "id": "14B3CD8FE65C69F0AF28BE42431182E1",
+      "size": 40,
+      "is_main": true
+    },
+    {
+      "id": "A1F227BE1661CB14E290FF07ED1110C7",
+      "size": 20,
+      "is_main": false
+    }
+    ]
+  },
+  "image": {
+    "id": "3C3F2FA3DB91318E8DCCB9F405339F76",
+    "name": "centos7-64std"
+  },
+  "dvd": null,
+  "snapshot": null,
+  "ips": [
+  {
+    "id": "F116AFAAF937A5661601D31463B3A776",
+    "ip": "10.4.141.154",
+    "type": "IPV4",
+    "reverse_dns": null,
+    "firewall_policy": null,
+    "load_balancers": []
+  }
+  ],
+  "alerts": [],
+  "monitoring_policy": {
+    "id": "5F1D473B4949F9665577A0249AE162CD",
+    "name": "Default Policy"
+  },
+  "private_networks": null
+}

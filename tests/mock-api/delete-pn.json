@@ -1,0 +1,11 @@
+{
+  "id": "E9E144DED84EAC9D97C1A022E0351024",
+  "name": "New private network 1",
+  "description": null,
+  "network_address": null,
+  "subnet_mask": null,
+  "state": "REMOVING",
+  "creation_date": "2015-05-06T11:34:41+00:00",
+  "servers": [],
+  "cloudpanel_id": "pn8962D_1"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "631F6C2271FD7F499E5C9C5B4EBE4C0B",
+  "name": "My monitoring policy",
+  "description": null,
+  "default": 0,
+  "state": "ACTIVE",
+  "creation_date": "2015-05-07T07:34:41+00:00",
+  "email": "",
+  "agent": true,
+  "servers": [],
+  "thresholds": {
+    "cpu": {
+      "warning": {
+        "value": 90,
+        "alert": false
+      },
+      "critical": {
+        "value": 95,
+        "alert": false
+      }
+    },
+    "ram": {
+      "warning": {
+        "value": 90,
+        "alert": false
+      },
+      "critical": {
+        "value": 95,
+        "alert": false
+      }
+    },
+    "disk": {
+      "warning": {
+        "value": 80,
+        "alert": false
+      },
+      "critical": {
+        "value": 90,
+        "alert": false
+      }
+    },
+    "transfer": {
+      "warning": {
+        "value": 1000,
+        "alert": false
+      },
+      "critical": {
+        "value": 2000,
+        "alert": false
+      }
+    },
+    "internal_ping": {
+      "warning": {
+        "value": 50,
+        "alert": false
+      },
+      "critical": {
+        "value": 100,
+        "alert": false
+      }
+    }
+  },
+  "ports": [
+  {
+    "id": "68EEA5DFB7275484CF0476DC3F94848B",
+    "protocol": "TCP",
+    "port": "22",
+    "alert_if": "RESPONDING",
+    "email_notification": true
+  }
+  ],
+  "processes": [
+  {
+    "id": "2F5AA2335A79125074CDBDD307465482",
+    "process": "test",
+    "alert_if": "NOT_RUNNING",
+    "email_notification": true
+  }
+  ],
+  "cloudpanel_id": "mo8962D_3"
+}

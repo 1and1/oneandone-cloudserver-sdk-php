@@ -1,0 +1,10 @@
+{
+  "id": "8D135204687B9CF9E79E7A93C096E336",
+  "ip": "10.4.140.213",
+  "type": "IPV4",
+  "assigned_to": null,
+  "reverse_dns": null,
+  "is_dhcp": true,
+  "state": "CONFIGURING",
+  "creation_date": "2015-05-04T06:32:18+00:00"
+}

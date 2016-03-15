@@ -1,0 +1,29 @@
+{
+  "id": "796A272DE4FD866898486309EF950826",
+  "cloudpanel_id": "26FCD5E",
+  "name": "Test clone",
+  "description": null,
+  "creation_date": "2015-05-07T10:51:09+00:00",
+  "first_password": null,
+  "status": {
+    "state": "DEPLOYING",
+    "percent": null
+  },
+  "hardware": {
+    "fixed_instance_size_id": 0,
+    "vcore": 1,
+    "cores_per_processor": 1,
+    "ram": 2,
+    "hdds": []
+  },
+  "image": {
+    "id": "3C3F2FA3DB91318E8DCCB9F405339F76",
+    "name": "centos7-64std"
+  },
+  "dvd": null,
+  "snapshot": null,
+  "ips": null,
+  "alerts": [],
+  "monitoring_policy": null,
+  "private_networks": null
+  }  

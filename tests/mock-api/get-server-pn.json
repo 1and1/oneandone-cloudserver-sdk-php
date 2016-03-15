@@ -1,0 +1,16 @@
+{
+  "id": "6B7051F17199EF9EA994CD3E4AA450E6",
+  "name": "New private network 1",
+  "description": null,
+  "network_address": null,
+  "subnet_mask": null,
+  "state": "ACTIVE",
+  "creation_date": "2015-05-07T10:31:12+00:00",
+  "servers": [
+  {
+    "id": "92AA60BEC8333A21EDB9EAAA61852860",
+    "name": "My server"
+  }
+  ],
+  "cloudpanel_id": "pn8962D_1"
+}

@@ -1,0 +1,144 @@
+{
+  "SERVERS": [
+  {
+    "id": "ABA6F4C16FE9893B09B354A4CF6321DF",
+    "name": "My Server remame",
+    "services": [
+    {
+      "type": "CPU",
+      "avg_amount": "1.00",
+      "unit": "vCore",
+      "usage": 49619,
+      "detail": [
+      {
+        "avg_amount": "1.00",
+        "unit": "vCore",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 49619
+      }
+      ]
+    },
+    {
+      "type": "HDD",
+      "avg_amount": "40.00",
+      "unit": "GB",
+      "usage": 49619,
+      "detail": [
+      {
+        "avg_amount": "40.00",
+        "unit": "GB",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 49619
+      }
+      ]
+    },
+    {
+      "type": "RAM",
+      "avg_amount": "2.00",
+      "unit": "GB",
+      "usage": 49619,
+      "detail": [
+      {
+        "avg_amount": "2.00",
+        "unit": "GB",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 49619
+      }
+      ]
+    },
+    {
+      "name": "82.223.25.60",
+      "type": "IP",
+      "avg_amount": "1.00",
+      "unit": "IP",
+      "usage": 49619,
+      "detail": [
+      {
+        "avg_amount": "1.00",
+        "unit": "IP",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 49619
+      }
+      ]
+    }
+    ]
+  }
+  ],
+  "SHARED_STORAGES": [
+  {
+    "name": "My Shared Storage 2",
+    "services": [
+    {
+      "type": "size",
+      "avg_amount": "74.21",
+      "unit": "GB",
+      "usage": 8862,
+      "detail": [
+      {
+        "avg_amount": "50.00",
+        "unit": "GB",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 4571
+      },
+      {
+        "avg_amount": "100.00",
+        "unit": "GB",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 4291
+      }
+      ]
+    }
+    ]
+  }
+  ],
+  "IMAGES": [
+  {
+    "name": "My image",
+    "services": [
+    {
+      "type": "size",
+      "avg_amount": "40.00",
+      "unit": "GB",
+      "usage": 49619,
+      "detail": [
+      {
+        "avg_amount": "40.00",
+        "unit": "GB",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 49619
+      }
+      ]
+    }
+    ]
+  }
+  ],
+  "PUBLIC_IPS": [
+  {
+    "name": "82.223.25.60",
+    "services": [
+    {
+      "type": "UNUSED_IP",
+      "avg_amount": "1.00",
+      "unit": "IP",
+      "usage": 45899,
+      "detail": [
+      {
+        "avg_amount": "1.00",
+        "unit": "IP",
+        "start_date": "2015-03-16T08:36:39+00:00",
+        "end_date": "2015-03-21T19:59:01+00:00",
+        "usage": 45899
+      }
+      ]
+    }
+    ]
+  }
+  ]
+}

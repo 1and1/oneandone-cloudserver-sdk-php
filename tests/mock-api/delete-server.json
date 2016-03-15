@@ -1,0 +1,50 @@
+{
+  "id": "6DD7C9714E555230BCFFED4E249358F0",
+  "cloudpanel_id": "B1F3EC8",
+  "name": "My Server 3",
+  "description": "",
+  "creation_date": "2015-05-05T10:54:07+00:00",
+  "first_password": "Qg4s9dFH0u",
+  "status": {
+    "state": "REMOVING",
+    "percent": 25
+  },
+  "hardware": {
+    "fixed_instance_size_id": 0,
+    "vcore": 1,
+    "cores_per_processor": 1,
+    "ram": 2,
+    "hdds": [
+    {
+      "id": "07E96155551EC584407DD8F2CE9EE956",
+      "size": 40,
+      "is_main": true
+    }
+    ]
+  },
+  "image": {
+    "id": "3C3F2FA3DB91318E8DCCB9F405339F76",
+    "name": "centos7-64std"
+  },
+  "dvd": null,
+  "snapshot": null,
+  "ips": [
+  {
+    "id": "B9CDBDDCA78167DB51F2F86F25208A05",
+    "ip": "10.4.140.251",
+    "type": "IPV4",
+    "reverse_dns": null,
+    "firewall_policy": {
+      "id": "5DE607955050915229D602931F942F32",
+      "name": "Linux"
+    },
+    "load_balancers": []
+  }
+  ],
+  "alerts": [],
+  "monitoring_policy": {
+    "id": "5F1D473B4949F9665577A0249AE162CD",
+    "name": "Default Policy"
+  },
+  "private_networks": null
+}

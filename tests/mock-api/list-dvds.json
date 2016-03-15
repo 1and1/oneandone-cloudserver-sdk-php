@@ -1,0 +1,128 @@
+[
+{
+  "id": "55726DEDA20C99CF6F2AF8F18CAC9963",
+  "name": "w2012r2datacenter64iso",
+  "os_family": "Windows",
+  "os": "WindowsDatacenter",
+  "os_version": "Windows2012R2",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "B675B070A3BB5C8D71B2129952F04BC8",
+  "name": "ubuntu1404-64iso",
+  "os_family": "Linux",
+  "os": "Ubuntu",
+  "os_version": "Ubuntu14.04",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "F9DCFAF16B4929D9F9AE6B24B125EC17",
+  "name": "centos6-32iso",
+  "os_family": "Linux",
+  "os": "Centos",
+  "os_version": "Centos6",
+  "architecture": 32,
+  "type": "OS"
+},
+{
+  "id": "3E04654E0DA19EE6A3699272D4114AFA",
+  "name": "centos6-64iso",
+  "os_family": "Linux",
+  "os": "Centos",
+  "os_version": "Centos6",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "8F8CBE2DAB9FF6F0F9A4D846E82DD651",
+  "name": "rhel6-64iso",
+  "os_family": "Linux",
+  "os": "RedHat",
+  "os_version": "RedHat6",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "B62716F09C314B46D6782EA385E27206",
+  "name": "centos7-64iso",
+  "os_family": "Linux",
+  "os": "Centos",
+  "os_version": "Centos7",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "AE54D0EE48B1F6E59021FAA63988274B",
+  "name": "debian6-64iso",
+  "os_family": "Linux",
+  "os": "Debian",
+  "os_version": "Debian6",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "AA70C76B77BC6132117DCA202D34A5A4",
+  "name": "debian6-32iso",
+  "os_family": "Linux",
+  "os": "Debian",
+  "os_version": "Debian6",
+  "architecture": 32,
+  "type": "OS"
+},
+{
+  "id": "4001EE28F2E195BD4D2D44844FAC9591",
+  "name": "debian7-64iso",
+  "os_family": "Linux",
+  "os": "Debian",
+  "os_version": "Debian7",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "B1A2D93BE081873BF127C9B9200849D8",
+  "name": "debian7-32iso",
+  "os_family": "Linux",
+  "os": "Debian",
+  "os_version": "Debian7",
+  "architecture": 32,
+  "type": "OS"
+},
+{
+  "id": "DC0886301FA0BFDD8BA21F3E9FDFC012",
+  "name": "freebsd10-64iso",
+  "os_family": "Linux",
+  "os": "FreeBSD",
+  "os_version": "FreeBSD10",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "369A148192AAD04C83FEC050F9072C76",
+  "name": "freebsd10-32iso",
+  "os_family": "Linux",
+  "os": "FreeBSD",
+  "os_version": "FreeBSD10",
+  "architecture": 32,
+  "type": "OS"
+},
+{
+  "id": "9F3A97E35D7C182EE7B871B7FBFEBBDC",
+  "name": "rhel7-64iso",
+  "os_family": "Linux",
+  "os": "RedHat",
+  "os_version": "RedHat7",
+  "architecture": 64,
+  "type": "OS"
+},
+{
+  "id": "FEF6DB2420612426911F2F9CA9E25755",
+  "name": "w2008r2datacenter64iso",
+  "os_family": "Windows",
+  "os": "WindowsDatacenter",
+  "os_version": "Windows2008R2",
+  "architecture": 64,
+  "type": "OS"
+}
+]

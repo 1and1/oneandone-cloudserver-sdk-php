@@ -1,0 +1,24 @@
+{
+    "name": "1and1 PHP SDK",
+    "description": "Official PHP SDK for the 1and1 REST API",
+    "homepage": "https://github.com/1and1/oneandone-cloudserver-sdk-php",
+    "license": "Apache 2.0",
+    "keywords": ["1and1", "oneandone", "PHP SDK", "cloud", "server"],
+    "authors": [
+        {
+            "name": "Tyler Burkhardt",
+            "email": "tyler@stackpointcloud.com"
+        }
+    ],
+    "require": {
+        "rmccue/requests": ">=1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\oneandone\\": "src/"
+        }
+    }
+}

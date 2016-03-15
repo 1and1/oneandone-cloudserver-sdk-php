@@ -1,0 +1,49 @@
+[
+{
+  "id": "E485755233541090E369E957EA2499D7",
+  "start_date": "2015-04-06T23:46:38Z",
+  "end_date": "2015-04-06T23:48:52Z",
+  "duration": 72,
+  "status": {
+    "state": "COMPLETED",
+    "percent": 100
+  },
+  "action": "DELETE",
+  "type": "MONITORINGPOLICY",
+  "resource": {
+    "id": "E485755233541090E6546957EA2499D7",
+    "name": "My Monitoring Policy 1"
+  },
+  "details": {
+    
+  },
+  "user": {
+    "id": "7C88E50FBC500A3D9D7F94E414255D6B",
+    "name": "034b011e.user"
+  },
+  "cloudpanel_id": "ap99AA4_1"
+},
+{
+  "id": "E485755233541090E369E957EA2499D8",
+  "start_date": "2015-04-06T23:51:00Z",
+  "end_date": "2015-04-06T23:51:29Z",
+  "duration": 29,
+  "status": {
+    "state": "COMPLETED",
+    "percent": 100
+  },
+  "action": "CREATE",
+  "type": "MONITORINGPOLICY",
+  "resource": {
+    "id": "E485755233541090E6546957EA2499D7",
+    "name": "My Monitoring Policy test"
+  },
+  "details": {
+    
+  },
+  "user": {
+    "id": "7C88E50FBC500A3D9D7F94E414255D6B",
+    "name": "034b011e.user"
+  }
+}
+]
