@@ -21,7 +21,7 @@ class ServerAppliance {
     }
 
     // Server Appliance methods
-    public function list($params = []) {
+    public function all($params = []) {
 
         // Build query parameter object
         $params += [

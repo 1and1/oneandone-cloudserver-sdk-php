@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all servers on your account
 $server = $client->server();
 
-$res = $server->list();
+$res = $server->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 
@@ -409,5 +409,5 @@ $server = $client->server();
 
 $name = 'Clone Server';
 
-$res = $server->clone($name, '<SERVER-ID>');
+$res = $server->cloneServer($name, '<SERVER-ID>');
 echo json_encode($res, JSON_PRETTY_PRINT);

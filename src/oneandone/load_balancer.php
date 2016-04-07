@@ -21,7 +21,7 @@ class LoadBalancer {
     }
 
     // Load Balancer methods
-    public function list($params = []) {
+    public function all($params = []) {
 
         // Build query parameter object
         $params += [

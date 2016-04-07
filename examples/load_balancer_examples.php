@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all load balancers on your account
 $load_balancer = $client->loadBalancer();
 
-$res = $load_balancer->list();
+$res = $load_balancer->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

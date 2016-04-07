@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all monitoring policies on your account
 $monitoring_policy = $client->monitoringPolicy();
 
-$res = $monitoring_policy->list();
+$res = $monitoring_policy->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

@@ -14,7 +14,7 @@ $params = [
     'period' => 'LAST_24H'
 ];
 
-$res = $log->list($params);
+$res = $log->all($params);
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

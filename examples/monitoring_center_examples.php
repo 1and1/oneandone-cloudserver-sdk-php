@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all usages and alerts of monitoring servers
 $monitoring_center = $client->monitoringCenter();
 
-$res = $monitoring_center->list();
+$res = $monitoring_center->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

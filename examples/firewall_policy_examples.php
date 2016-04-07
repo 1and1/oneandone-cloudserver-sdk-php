@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all firewall policies on your account
 $firewall_policy = $client->firewallPolicy();
 
-$res = $firewall_policy->list();
+$res = $firewall_policy->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

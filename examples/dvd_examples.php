@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all DVD's on your account
 $dvd = $client->dvd();
 
-$res = $dvd->list();
+$res = $dvd->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all server appliances on your account
 $server_appliance = $client->serverAppliance();
 
-$res = $server_appliance->list();
+$res = $server_appliance->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

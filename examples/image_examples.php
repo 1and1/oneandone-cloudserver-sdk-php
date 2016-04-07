@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all images on your account
 $image = $client->image();
 
-$res = $image->list();
+$res = $image->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

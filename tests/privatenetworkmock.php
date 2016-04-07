@@ -13,18 +13,18 @@ class PrivateNetworkTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-private-networks.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], '6058B5DAF8182D20E1C68C3CED78EE22');
@@ -155,7 +155,7 @@ class PrivateNetworkTest extends PHPUnit_Framework_TestCase
     public function testRemoveServer() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-server-pn.json');
+        $file = file_get_contents('tests/mock-api/remove-server-private.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -175,7 +175,7 @@ class PrivateNetworkTest extends PHPUnit_Framework_TestCase
     public function testAddServers() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/attach-server-pn.json');
+        $file = file_get_contents('tests/mock-api/add-servers-private.json');
         $data = json_decode($file, true);
 
         // Create stub

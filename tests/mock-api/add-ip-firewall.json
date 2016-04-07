@@ -1,0 +1,32 @@
+{
+  "id": "83522FC7DA9172F229E5352C587075BA",
+  "name": "Firewall policy rename test",
+  "description": "Firewall policy rename test description",
+  "state": "CONFIGURING",
+  "creation_date": "2015-04-29T10:43:11+00:00",
+  "default": 0,
+  "rules": [
+  {
+    "id": "DA5CC179ED00079AE7DE595F0073D86E",
+    "protocol": "TCP",
+    "port_from": 80,
+    "port_to": 80,
+    "source": "0.0.0.0"
+  },
+  {
+    "id": "0766EC674A0CD9D4EC0FA0B07978A649",
+    "protocol": "TCP",
+    "port_from": 443,
+    "port_to": 443,
+    "source": "0.0.0.0"
+  }
+  ],
+  "server_ips": [
+  {
+    "id": "01D4A802798AB77AA72DA2D05E1379E1",
+    "ip": "10.5.135.140",
+    "server_name": "My Server 2"
+  }
+  ],
+  "cloudpanel_id": "FW99AA4_7"
+}

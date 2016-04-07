@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all public IPs on your account
 $public_ip = $client->publicIp();
 
-$res = $public_ip->list();
+$res = $public_ip->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

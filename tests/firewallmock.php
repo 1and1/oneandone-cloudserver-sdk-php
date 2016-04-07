@@ -13,18 +13,18 @@ class FirewallPolicyTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-firewalls.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], '83522FC7DA9172F229E5352C587075BA');
@@ -163,7 +163,7 @@ class FirewallPolicyTest extends PHPUnit_Framework_TestCase
     public function testRemoveIp() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-ip-fp.json');
+        $file = file_get_contents('tests/mock-api/remove-ip-firewall.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -183,7 +183,7 @@ class FirewallPolicyTest extends PHPUnit_Framework_TestCase
     public function testAddIps() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/assign-ip-fp.json');
+        $file = file_get_contents('tests/mock-api/add-ip-firewall.json');
         $data = json_decode($file, true);
 
         // Create stub

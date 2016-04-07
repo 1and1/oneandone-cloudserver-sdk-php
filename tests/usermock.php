@@ -13,18 +13,18 @@ class UserTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-users.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], '7C88E50FBC500A3D9D7F94E414255D6B');

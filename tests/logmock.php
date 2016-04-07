@@ -13,14 +13,14 @@ class LogTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-logs.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
@@ -28,7 +28,7 @@ class LogTest extends PHPUnit_Framework_TestCase
             'period' => 'LAST_24H'
         ];
 
-        $res = $this->stub->list($params);
+        $res = $this->stub->all($params);
 
         // Assert
         $this->assertEquals($res[0]['id'], 'E485755233541090E369E957EA2499D7');

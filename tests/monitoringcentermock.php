@@ -13,18 +13,18 @@ class MonitoringCenterTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-monitoring-center-usages.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], 'ABA6F4C16FE9893B09B354A4CF6321DF');

@@ -21,7 +21,7 @@ class Server {
     }
 
     // Server methods
-    public function list($params = []) {
+    public function all($params = []) {
 
         // Build query parameter object
         $params += [
@@ -1105,7 +1105,7 @@ class Server {
 
     }
 
-    public function clone($name, $server_id = null) {
+    public function cloneServer($name, $server_id = null) {
 
         // Build URI
         if($server_id) {
