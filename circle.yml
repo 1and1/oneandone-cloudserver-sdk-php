@@ -1,0 +1,19 @@
+machine:
+  php:
+    version: 5.6.14
+test:
+  override:
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/servermock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/imagemock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/storagemock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/firewallmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/loadbalancermock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/ipmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/privatenetworkmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/monitoringcentermock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/mpmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/dvdmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/logmock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/serverappliancemock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/usagemock.php
+    - vendor/bin/phpunit --bootstrap vendor/autoload.php tests/usermock.php

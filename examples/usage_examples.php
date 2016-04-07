@@ -14,5 +14,5 @@ $params = [
     'period' => 'LAST_24H'
 ];
 
-$res = $usage->list($params);
+$res = $usage->all($params);
 echo json_encode($res, JSON_PRETTY_PRINT);

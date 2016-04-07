@@ -21,7 +21,7 @@ class Usage {
     }
 
     // Usage methods
-    public function list($params = []) {
+    public function all($params = []) {
 
         // Build query parameter object
         $params += [

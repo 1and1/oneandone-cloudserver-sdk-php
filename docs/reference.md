@@ -180,7 +180,7 @@ $server = $client->server();
 **List all servers:**
 
 ```
-$res = $server->list();
+$res = $server->all();
 ```
 
 
@@ -465,11 +465,11 @@ $res = $server->createSnapshot('<SERVER-ID>');
 $name = 'Clone Server';
 
 
-$res = $server->clone($name);
+$res = $server->cloneServer($name);
 
 OR
 
-$res = $server->clone($name, '<SERVER-ID>');
+$res = $server->cloneServer($name, '<SERVER-ID>');
 ```
 
 
@@ -740,7 +740,7 @@ $image = $client->image();
 **List all images:**
 
 ```
-$res = $image->list();
+$res = $image->all();
 ```
 
 
@@ -815,7 +815,7 @@ $shared_storage = $client->sharedStorage();
 **List all shared storages:**
 
 ```
-$res = $shared_storage->list();
+$res = $shared_storage->all();
 ```
 
 
@@ -963,7 +963,7 @@ $firewall_policy = $client->firewallPolicy();
 **List all firewall policies:**
 
 ```
-$res = $firewall_policy->list();
+$res = $firewall_policy->all();
 ```
 
 
@@ -1152,7 +1152,7 @@ $load_balancer = $client->loadBalancer();
 **List all load balancers:**
 
 ```
-$res = $load_balancer->list();
+$res = $load_balancer->all();
 ```
 
 
@@ -1356,7 +1356,7 @@ $public_ip = $client->publicIp();
 **List all public IPs on your account:**
 
 ```
-$res = $public_ip->list();
+$res = $public_ip->all();
 ```
 
 
@@ -1425,7 +1425,7 @@ $private_network = $client->privateNetwork();
 **List all private networks:**
 
 ```
-$res = $private_network->list();
+$res = $private_network->all();
 ```
 
 
@@ -1555,7 +1555,7 @@ $monitoring_center = $client->monitoringCenter();
 **List all usages and alerts of monitoring servers:**
 
 ```
-$res = $monitoring_center->list();
+$res = $monitoring_center->all();
 ```
 
 
@@ -1591,7 +1591,7 @@ $monitoring_policy = $client->monitoringPolicy();
 **List all monitoring policies:**
 
 ```
-$res = $monitoring_policy->list();
+$res = $monitoring_policy->all();
 ```
 
 
@@ -2022,7 +2022,7 @@ $params = [
     'period' => 'LAST_24H'
 ];
 
-$res = $log->list($params);
+$res = $log->all($params);
 ```
 
 
@@ -2048,7 +2048,7 @@ $user = $client->user();
 **List all users on your account:**
 
 ```
-$res = $user->list();
+$res = $user->all();
 ```
 
 
@@ -2219,7 +2219,7 @@ $params = [
     'period' => 'LAST_24H'
 ];
 
-$res = $usage->list($params);
+$res = $usage->all($params);
 ```
 
 
@@ -2238,7 +2238,7 @@ $server_appliance = $client->serverAppliance();
 **List all appliances:**
 
 ```
-$res = $server_appliance->list();
+$res = $server_appliance->all();
 ```
 
 
@@ -2264,7 +2264,7 @@ $dvd = $client->dvd();
 **List all DVD's on your account:**
 
 ```
-$res = $dvd->list();
+$res = $dvd->all();
 ```
 
 

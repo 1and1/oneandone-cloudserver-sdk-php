@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all users on your account
 $user = $client->user();
 
-$res = $user->list();
+$res = $user->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

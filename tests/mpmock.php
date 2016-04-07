@@ -13,18 +13,18 @@ class MonitoringPolicyTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-mps.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], '0F9A1604FC80EB625FC6AEE7394893BE');

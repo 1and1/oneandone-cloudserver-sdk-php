@@ -13,18 +13,18 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testList() {
+    public function testAll() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/list-servers.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('list')
+        $this->stub->method('all')
              ->willReturn($data);
 
         // Perform call
-        $res = $this->stub->list();
+        $res = $this->stub->all();
 
         // Assert
         $this->assertEquals($res[0]['id'], '39AA65F5D5B02FA02D58173094EBAF95');
@@ -813,20 +813,20 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testClone() {
+    public function testCloneServer() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/clone-server.json');
         $data = json_decode($file, true);
 
         // Create stub
-        $this->stub->method('clone')
+        $this->stub->method('cloneServer')
              ->willReturn($data);
 
         // Perform call
         $name = 'Test clone';
 
-        $res = $this->stub->clone($name,
+        $res = $this->stub->cloneServer($name,
             '39AA65F5D5B02FA02D58173094EBAF95');
 
         // Assert

@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all private networks on your account
 $private_network = $client->privateNetwork();
 
-$res = $private_network->list();
+$res = $private_network->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

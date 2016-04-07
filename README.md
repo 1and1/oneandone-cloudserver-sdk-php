@@ -1,5 +1,7 @@
 # 1&amp;1 PHP SDK
 
+[![Circle CI](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php.svg?style=shield&circle-token=a73adb3e22e3915930256874312cf3525fd0125f)](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php)
+
 The 1&amp;1 PHP SDK is a library used for interacting with the 1&amp;1 platform over the REST API.
 
 This guide will show you how to programmatically use the 1&amp;1 library to perform common management tasks also available through the 1&amp;1 Control Panel.
@@ -353,7 +355,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 
 ### Listing Servers, Images, Shared Storages, and More
 
-Generating a list of resources is fairly straight forward.  Every class in the library comes equipped with a `list` method.  You may pass optional query parameters to help filter your results.  By default, these parameters are all set to `null`.
+Generating a list of resources is fairly straight forward.  Every class in the library comes equipped with an `all` method.  You may pass optional query parameters to help filter your results.  By default, these parameters are all set to `null`.
 
 **Here are the parameters available to you:**
 
@@ -381,7 +383,7 @@ $client = new OneAndOne('<API-TOKEN>');
 // List All Servers On Your Account
 $server = $client->server();
 
-$res = $server->list();
+$res = $server->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 
@@ -392,14 +394,14 @@ $params = [
     'q' => 'My'
 ];
 
-$res = $server->list($params);
+$res = $server->all($params);
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 
 # List all images on your account
 $image = $client->image();
 
-$res = $image->list();
+$res = $image->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 

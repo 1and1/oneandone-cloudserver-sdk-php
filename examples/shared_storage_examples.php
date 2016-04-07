@@ -10,7 +10,7 @@ $client = new OneAndOne('<API-TOKEN>');
 # List all shared storages on your account
 $shared_storage = $client->sharedStorage();
 
-$res = $shared_storage->list();
+$res = $shared_storage->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 
