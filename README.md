@@ -129,9 +129,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```php
 <?php
 
-require(__DIR__.'/vendor/autoload.php');
-
-use src\oneandone\OneAndOne;
+use OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
