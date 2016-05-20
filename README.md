@@ -1,5 +1,7 @@
 # 1&amp;1 PHP SDK
 
+[![Circle CI](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php.svg?style=shield&circle-token=a73adb3e22e3915930256874312cf3525fd0125f)](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php)
+
 The 1&amp;1 PHP SDK is a library used for interacting with the 1&amp;1 platform over the REST API.
 
 This guide will show you how to programmatically use the 1&amp;1 library to perform common management tasks also available through the 1&amp;1 Control Panel. For more information on the 1&amp;1 PHP SDK see the [1&1 Community Portal](https://www.1and1.com/cloud-community/).
