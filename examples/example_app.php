@@ -33,7 +33,7 @@ $args = [
 echo "Creating load balancer...\n";
 $res = $load_balancer->create($args);
 // Wait for Load Balancer to Deploy
-$load_balancer->waitFor();
+echo $load_balancer->waitFor();
 
 
 
@@ -58,69 +58,52 @@ $args = [
 echo "\nCreating firewall policy...\n";
 $res = $firewall_policy->create($args);
 // Wait for Firewall to Deploy
-$firewall_policy->waitFor();
+echo $firewall_policy->waitFor();
 
 
 
 // Create Server
 $server = $client->server();
 
-$hdd1 = [
-    'size' => 120,
-    'is_main' => True
-];
-
-$hdds = [$hdd1];
-
 $my_server = [
-    'name' => 'Example Server',
-    'description' => 'Example Desc',
+    'name' => 'Example App Server',
     'hardware' => [
-        'vcore' => 1,
-        'cores_per_processor' => 1,
-        'ram' => 1,
-        'hdds' => $hdds
+        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
     ],
-    'appliance_id' => '<IMAGE-ID>'
+    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
+    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49'
 ];
 
 echo "\nCreating server...\n";
 $res = $server->create($my_server);
 // Wait for Server to Deploy
-$server->waitFor();
-
-
-
-// Add a New IP to the Server
-echo "\nAdding an IP to the server...\n";
-$res = $server->addIp();
-$new_ip = $res['ips'][1]['id'];
+echo $server->waitFor();
 
 
 
 // Add the Load Balancer to the New IP
 $add_lb = [
-    'ip_id' => $new_ip,
+    'ip_id' => $server->first_ip['id'],
     'load_balancer_id' => $load_balancer->id
 ];
 
 echo "\nAdding load balancer to the IP...\n";
 $res = $server->addLoadBalancer($add_lb);
 // Wait for load balancer to be added
-$server->waitFor();
+echo $server->waitFor();
 
 
 
 // Add the Firewall Policy to the New IP
 $add_firewall = [
-    'ip_id' => $new_ip,
+    'ip_id' => $server->first_ip['id'],
     'firewall_id' => $firewall_policy->id
 ];
 
 echo "\nAdding firewall policy to the IP...\n";
 $res = $server->addFirewall($add_firewall);
 // Wait for firewall policy to be added
-$server->waitFor();
+echo $server->waitFor();
 
 
 
@@ -129,13 +112,13 @@ echo "\nEverything looks good!\n";
 echo "\nLet's clean up the mess we just made.\n";
 
 echo "\nDeleting server...\n";
-$res = $server->delete();
+$server->delete();
 echo "Success!\n";
 
 echo "\nDeleting load balancer...\n";
-$res = $load_balancer->delete();
+$load_balancer->delete();
 echo "Success!\n";
 
 echo "\nDeleting firewall policy...\n";
-$res = $firewall_policy->delete();
+$firewall_policy->delete();
 echo "Success!\n";

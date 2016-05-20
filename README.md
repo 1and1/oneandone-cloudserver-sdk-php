@@ -15,6 +15,7 @@ This guide will show you how to programmatically use the 1&amp;1 library to perf
 - [Operations](#operations)
   - [Using the Module](#using-the-module)
   - [Creating a Server](#creating-a-server)
+  - [Creating a Server with SSH Key Access](#creating-a-server-with-ssh-key-access)
   - [Creating a Firewall Policy](#creating-a-firewall-policy)
   - [Creating a Load Balancer](#creating-a-load-balancer)
   - [Creating a Monitoring Policy](#creating-a-monitoring-policy)
@@ -37,10 +38,10 @@ Before you begin you will need to have signed-up for a 1&amp;1 account. The cred
 
 You can install the latest stable version using Composer.  Simply add the snippet below to your `composer.json` file:
 
-```
+```json
 {
     "require": {
-        "oneandone/oneandone": ">=1.0"
+        "1and1/1and1-sdk-php": ">=1.0"
     }
 }
 ```
@@ -50,7 +51,7 @@ You can install the latest stable version using Composer.  Simply add the snippe
 
 Connecting to 1&amp;1 is handled by first setting up your authentication.  Start your application by initializing the module with your API token.
 
-```
+```php
 <?php
 
 use OneAndOne;
@@ -64,7 +65,7 @@ You can now use `$client` to perform all future operations, as seen in the examp
 
 ### Using the Module
 
-Official 1&amp;1 REST API Documentation: <a href='https://cloudpanel-api.1and1.com/documentation/v1/#' target='_blank'>https://cloudpanel-api.1and1.com/documentation/v1/#</a>
+Official 1&amp;1 REST API Documentation: <a href='https://cloudpanel-api.1and1.com/documentation/1and1/v1/en/documentation.html' target='_blank'>https://cloudpanel-api.1and1.com/documentation/1and1/v1/en/documentation.html</a>
 
 The following examples are meant to give you a general overview of some of the things you can do with the 1&amp;1 PHP SDK.  For a detailed list of all methods and functionality, please visit the <a href='docs/reference.md'>reference.md</a> file.
 
@@ -73,7 +74,7 @@ The following examples are meant to give you a general overview of some of the t
 
 ### Creating a Server
 
-```
+```php
 <?php
 
 use OneAndOne;
@@ -112,9 +113,57 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 
 
+### Creating a Server with SSH Key Access
+
+```php
+<?php
+
+use OneAndOne;
+
+// Instantiate library with your API Token
+$client = new OneAndOne('<API-TOKEN>');
+
+
+// Instantiate Server Object
+$server = $client->server();
+
+// Create HDD's
+$hdd1 = [
+    'size' => 120,
+    'is_main' => True
+];
+
+$hdds = [$hdd1];
+
+// Assign your public key to a variable
+$pub_key = '<PUB-KEY>';
+
+// Create Server
+$my_server = [
+    'name' => 'Example Server',
+    'description' => 'Example Desc',
+    'hardware' => [
+        'vcore' => 1,
+        'cores_per_processor' => 1,
+        'ram' => 1,
+        'hdds' => $hdds
+    ],
+    'appliance_id' => '<IMAGE-ID>',
+    'rsa_key' => $pub_key
+];
+
+// Perform Request
+$res = $server->create($my_server);
+echo json_encode($res, JSON_PRETTY_PRINT);
+```
+**Note:** You may then SSH into your server by executing the following command in terminal 
+
+`ssh –i <path_to_private_key_file> root@SERVER_IP`
+
+
 ### Creating a Firewall Policy
 
-```
+```php
 <?php
 
 use OneAndOne;
@@ -151,7 +200,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 
 ### Creating a Load Balancer
 
-```
+```php
 <?php
 
 use OneAndOne;
@@ -192,7 +241,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 
 ### Creating a Monitoring Policy
 
-```
+```php
 <?php
 
 use OneAndOne;
@@ -293,7 +342,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 
 Then, add a server or two:
-```
+```php
 $server1 = '<SERVER-ID>';
 
 $servers = [$server1];
@@ -308,7 +357,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 1&amp;1 allows users to dynamically update cores, memory, and disk independently of each other. This removes the restriction of needing to upgrade to the next size up to receive an increase in memory. You can now simply increase the instances memory keeping your costs in-line with your resource needs.
 
 The following code illustrates how you can update cores and memory:
-```
+```php
 <?php
 
 use OneAndOne;
@@ -330,7 +379,7 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 
 This is how you would update a server disk's size:
-```
+```php
 <?php
 
 use OneAndOne;
@@ -371,7 +420,7 @@ Generating a list of resources is fairly straight forward.  Every class in the l
 
 
 **Here are a few examples of how you would list resources:**
-```
+```php
 <?php
 
 use OneAndOne;
@@ -409,12 +458,10 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 
 ## Example App
 
-This simple app creates a load balancer, firewall policy, and server.  It then creates a new IP for the server and adds the load balancer and firewall policy to that IP.
+This simple app creates a load balancer, firewall policy, and server.  It then adds the load balancer and firewall policy to the server's initial IP address.  You can access a server's initial IP by using the `first_ip` attribute on the Server class object, as seen in the example below.
 
-Use the `wait_for` method to chain together multiple actions that take some time to deploy.  See the <a href='docs/reference.md'>reference.md</a> file for a more detailed description of the `wait_for` method.
-
-The source code for the Example App with some additional markup can be found <a href='examples/example_app.rb'>here</a>.
-```
+The source code for the Example App can be found <a href='examples/example_app.php'>here</a>.
+```php
 <?php
 
 use OneAndOne;
@@ -449,7 +496,7 @@ $args = [
 echo "Creating load balancer...\n";
 $res = $load_balancer->create($args);
 // Wait for Load Balancer to Deploy
-$load_balancer->waitFor();
+echo $load_balancer->waitFor();
 
 
 
@@ -474,69 +521,52 @@ $args = [
 echo "\nCreating firewall policy...\n";
 $res = $firewall_policy->create($args);
 // Wait for Firewall to Deploy
-$firewall_policy->waitFor();
+echo $firewall_policy->waitFor();
 
 
 
 // Create Server
 $server = $client->server();
 
-$hdd1 = [
-    'size' => 120,
-    'is_main' => True
-];
-
-$hdds = [$hdd1];
-
 $my_server = [
-    'name' => 'Example Server',
-    'description' => 'Example Desc',
+    'name' => 'Example App Server',
     'hardware' => [
-        'vcore' => 1,
-        'cores_per_processor' => 1,
-        'ram' => 1,
-        'hdds' => $hdds
+        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
     ],
-    'appliance_id' => '<IMAGE-ID>'
+    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
+    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49'
 ];
 
 echo "\nCreating server...\n";
 $res = $server->create($my_server);
 // Wait for Server to Deploy
-$server->waitFor();
-
-
-
-// Add a New IP to the Server
-echo "\nAdding an IP to the server...\n";
-$res = $server->addIp();
-$new_ip = $res['ips'][1]['id'];
+echo $server->waitFor();
 
 
 
 // Add the Load Balancer to the New IP
 $add_lb = [
-    'ip_id' => $new_ip,
+    'ip_id' => $server->first_ip['id'],
     'load_balancer_id' => $load_balancer->id
 ];
 
 echo "\nAdding load balancer to the IP...\n";
 $res = $server->addLoadBalancer($add_lb);
 // Wait for load balancer to be added
-$server->waitFor();
+echo $server->waitFor();
 
 
 
 // Add the Firewall Policy to the New IP
 $add_firewall = [
-    'ip_id' => $new_ip,
+    'ip_id' => $server->first_ip['id'],
     'firewall_id' => $firewall_policy->id
 ];
 
 echo "\nAdding firewall policy to the IP...\n";
 $res = $server->addFirewall($add_firewall);
 // Wait for firewall policy to be added
-$server->waitFor();
+echo $server->waitFor();
 
 
 
@@ -545,14 +575,14 @@ echo "\nEverything looks good!\n";
 echo "\nLet's clean up the mess we just made.\n";
 
 echo "\nDeleting server...\n";
-$res = $server->delete();
+$server->delete();
 echo "Success!\n";
 
 echo "\nDeleting load balancer...\n";
-$res = $load_balancer->delete();
+$load_balancer->delete();
 echo "Success!\n";
 
 echo "\nDeleting firewall policy...\n";
-$res = $firewall_policy->delete();
+$firewall_policy->delete();
 echo "Success!\n";
 ```

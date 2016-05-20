@@ -46,12 +46,14 @@ class PublicIp {
 
     }
 
-    public function create($reverse_dns = null, $type = 'IPV4') {
+    public function create($datacenter_id = null, $reverse_dns = null,
+        $type = 'IPV4') {
 
         // Build POST body
         $body = [
             'reverse_dns' => $reverse_dns,
-            'type' => $type
+            'type' => $type,
+            'datacenter_id' => $datacenter_id
         ];
 
         // Clean out null values from POST body

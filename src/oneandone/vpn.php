@@ -4,13 +4,13 @@ namespace src\oneandone;
 
 use Requests;
 
-class SharedStorage {
+class Vpn {
 
     protected $api_token;
     protected $header;
     public $id;
     public $specs;
-    const BASE_ENDPOINT = '/shared_storages';
+    const BASE_ENDPOINT = '/vpns';
 
     // Constructor
     public function __construct($token, $header) {
@@ -20,7 +20,7 @@ class SharedStorage {
 
     }
 
-    // Shared Storage methods
+    // Image methods
     public function all($params = []) {
 
         // Build query parameter object
@@ -52,15 +52,11 @@ class SharedStorage {
         $args += [
             'name' => null,
             'description' => null,
-            'size' => null,
             'datacenter_id' => null
         ];
 
-        // Clean out null values from POST body
-        $body = Utilities::cleanArray($args);
-
         // Encode the POST body
-        $data = json_encode($body);
+        $data = json_encode($args);
 
         // Build URL
         $url = Utilities::buildURL(self::BASE_ENDPOINT);
@@ -74,7 +70,7 @@ class SharedStorage {
         // Decode the response
         $json = json_decode($response->body, true);
 
-        // Store shared storage ID and response body for later use
+        // Store image ID and response body for later use
         $this->specs = $json;
         $this->id = $json['id'];
 
@@ -82,11 +78,11 @@ class SharedStorage {
 
     }
 
-    public function get($shared_storage_id = null) {
+    public function get($vpn_id = null) {
 
         // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
+        if($vpn_id) {
+            $uri = $vpn_id;
         }else{
             $uri = $this->id;
         }
@@ -106,11 +102,11 @@ class SharedStorage {
 
     }
 
-    public function modify($args, $shared_storage_id = null) {
+    public function modify($args, $vpn_id = null) {
 
         // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
+        if($vpn_id) {
+            $uri = $vpn_id;
         }else{
             $uri = $this->id;
         }
@@ -118,8 +114,7 @@ class SharedStorage {
         // Build PUT body
         $args += [
             'name' => null,
-            'description' => null,
-            'size' => null
+            'description' => null
         ];
 
         // Clean out null values from PUT body
@@ -138,16 +133,17 @@ class SharedStorage {
         // Check response status
         Utilities::checkResponse($response->body, $response->status_code);
 
-        // Decode the response
+        // Decode the response and return
         return json_decode($response->body, true);
 
     }
 
-    public function delete($shared_storage_id = null) {
+
+    public function delete($vpn_id = null) {
 
         // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
+        if($vpn_id) {
+            $uri = $vpn_id;
         }else{
             $uri = $this->id;
         }
@@ -167,17 +163,18 @@ class SharedStorage {
 
     }
 
-    public function servers($shared_storage_id = null) {
+
+    public function downloadConfig($vpn_id = null) {
 
         // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
+        if($vpn_id) {
+            $uri = $vpn_id;
         }else{
             $uri = $this->id;
         }
 
         // Build URL
-        $extension = "/$uri/servers";
+        $extension = "/$uri/configuration_file";
         $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
 
         // Perform Request
@@ -191,127 +188,6 @@ class SharedStorage {
 
     }
 
-    public function server($server_id, $shared_storage_id = null) {
-
-        // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build URL
-        $extension = "/$uri/servers/$server_id";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::get($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
-    public function removeServer($server_id, $shared_storage_id = null) {
-
-        // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build URL
-        $extension = "/$uri/servers/$server_id";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::delete($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
-    public function AddServers($servers, $shared_storage_id = null) {
-
-        // Build URI
-        if($shared_storage_id) {
-            $uri = $shared_storage_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build POST body
-        $body = [
-            'servers' => $servers
-        ];
-
-        // Encode the POST body
-        $data = json_encode($body);
-
-        // Build URL
-        $extension = "/$uri/servers";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::post($url, $this->header, $data);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
-    public function access() {
-
-        // Build URL
-        $extension = '/access';
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::get($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
-    public function changePassword($password) {
-
-        // Build URL
-        $extension = '/access';
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Build PUT body
-        $body = [
-            'password' => $password
-        ];
-
-        // Encode the PUT body
-        $data = json_encode($body);
-
-        // Perform Request
-        $response = Requests::put($url, $this->header, $data);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
 
     public function waitFor($timeout = 25, $interval = 15) {
 
@@ -320,17 +196,17 @@ class SharedStorage {
 
         // Check initial status and save server state
         $initial_response = $this->get();
-        $shared_storage_state = $initial_response['state'];
+        $vpn_state = $initial_response['state'];
 
         // Keep polling the server's state until good
-        while(!in_array($shared_storage_state, GOOD_STATES)) {
+        while(!in_array($vpn_state, GOOD_STATES)) {
 
             // Wait 60 seconds before polling again
             sleep($interval);
 
             // Check server state again
             $current_response = $this->get();
-            $shared_storage_state = $current_response['state'];
+            $vpn_state = $current_response['state'];
 
             // Iterate counter and check for timeout
             $counter++;
