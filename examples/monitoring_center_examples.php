@@ -1,6 +1,8 @@
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 $client = new OneAndOne('<API-TOKEN>');
 

@@ -1,7 +1,5 @@
 # 1&amp;1 PHP SDK
 
-[![Circle CI](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php.svg?style=shield&circle-token=a73adb3e22e3915930256874312cf3525fd0125f)](https://circleci.com/gh/StackPointCloud/oneandone-cloudserver-sdk-php)
-
 The 1&amp;1 PHP SDK is a library used for interacting with the 1&amp;1 platform over the REST API.
 
 This guide will show you how to programmatically use the 1&amp;1 library to perform common management tasks also available through the 1&amp;1 Control Panel.
@@ -19,8 +17,8 @@ This guide will show you how to programmatically use the 1&amp;1 library to perf
   - [Creating a Firewall Policy](#creating-a-firewall-policy)
   - [Creating a Load Balancer](#creating-a-load-balancer)
   - [Creating a Monitoring Policy](#creating-a-monitoring-policy)
-  - [Updating Server Cores, Memory, and Disk](#updating-server-cores,-memory,-and-disk)
-  - [Listing Servers, Images, Shared Storages, and More](#listing-servers,-images,-shared-storages,-and-more )
+  - [Updating Server Cores, Memory, and Disk](#updating-server-cores-memory-and-disk)
+  - [Listing Servers, Images, Shared Storages, and More](#listing-servers-images-shared-storages-and-more )
 - [Example App](#example-app)
 
 
@@ -36,14 +34,23 @@ Before you begin you will need to have signed-up for a 1&amp;1 account. The cred
 
 ### Installation
 
-You can install the latest stable version using Composer.  Simply add the snippet below to your `composer.json` file:
+You can install the latest stable version using <a href='https://getcomposer.org/'>Composer</a>.  If you don't already have Composer installed, follow their installation instructions <a href='https://getcomposer.org/doc/00-intro.md'>here</a>.  Once you have Composer installed, add the snippet below to your `composer.json` file, and then run `composer install` from your terminal.  This will create a `vendor` directory in your repo, and now allows you to use the 1and1 PHP SDK.
 
 ```json
 {
     "require": {
-        "1and1/1and1-sdk-php": ">=1.0"
+        "1and1/1and1-sdk-php": ">=1.0.0"
     }
 }
+```
+
+You will need to "autoload" the SDK by requiring Composer's autoload file at the top of your PHP script, like so:
+```php
+<?php
+
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 ```
 
 
@@ -54,7 +61,9 @@ Connecting to 1&amp;1 is handled by first setting up your authentication.  Start
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 $client = new OneAndOne('<API-TOKEN>');
 ```
@@ -77,7 +86,9 @@ The following examples are meant to give you a general overview of some of the t
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -118,7 +129,9 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -166,7 +179,9 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -203,7 +218,9 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -244,7 +261,9 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -360,7 +379,9 @@ The following code illustrates how you can update cores and memory:
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -382,7 +403,9 @@ This is how you would update a server disk's size:
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -423,7 +446,9 @@ Generating a list of resources is fairly straight forward.  Every class in the l
 ```php
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -464,7 +489,9 @@ The source code for the Example App can be found <a href='examples/example_app.p
 ```php
 <?php
 
-use OneAndOne;
+require(dirname(__DIR__).'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');

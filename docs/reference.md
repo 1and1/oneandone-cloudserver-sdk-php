@@ -34,7 +34,9 @@ Use the `waitFor()` method on any major class object to poll its resource until 
 ```
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -91,7 +93,9 @@ If we extend our previous example, notice how we add a load balancer using the `
 ```
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
