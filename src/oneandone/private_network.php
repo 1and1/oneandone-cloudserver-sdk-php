@@ -53,7 +53,8 @@ class PrivateNetwork {
             'name' => null,
             'description' => null,
             'network_address' => null,
-            'subnet_mask' => null
+            'subnet_mask' => null,
+            'datacenter_id' => null
         ];
 
         // Clean out null values from POST body
@@ -272,31 +273,35 @@ class PrivateNetwork {
 
     }
 
-    public function waitFor() {
+    public function waitFor($timeout = 25, $interval = 5) {
 
-        // Check initial status and save private network state
+        // Set counter for timeout
+        $counter = 0;
+
+        // Check initial status and save server state
         $initial_response = $this->get();
         $private_network_state = $initial_response['state'];
 
-        // Keep polling the private network's state until good
+        // Keep polling the server's state until good
         while(!in_array($private_network_state, GOOD_STATES)) {
 
-            // Wait 5 second before polling again
-            sleep(5);
+            // Wait 60 seconds before polling again
+            sleep($interval);
 
-            // Check private network state again
+            // Check server state again
             $current_response = $this->get();
             $private_network_state = $current_response['state'];
 
-            // Inform user when state is good
-            if(in_array($private_network_state, GOOD_STATES)) {
-
-                echo "\nSuccess!\n";
-                echo "Private Network state: $private_network_state \n";
-
+            // Iterate counter and check for timeout
+            $counter++;
+            if($counter == $timeout) {
+                echo "The operation timed out after $timeout minutes.\n";
+                break;
             }
 
         }
+
+        return "duration => $counter";
 
     }
 

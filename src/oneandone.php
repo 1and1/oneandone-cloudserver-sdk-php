@@ -18,6 +18,12 @@ use src\oneandone\User;
 use src\oneandone\Usage;
 use src\oneandone\ServerAppliance;
 use src\oneandone\Dvd;
+use src\oneandone\Datacenter;
+use src\oneandone\Pricing;
+use src\oneandone\Ping;
+use src\oneandone\PingAuth;
+use src\oneandone\Vpn;
+use src\oneandone\Role;
 
 // Include Library Classes/Traits
 require(dirname(__DIR__).'/vendor/autoload.php');
@@ -36,13 +42,19 @@ require 'oneandone/user.php';
 require 'oneandone/usage.php';
 require 'oneandone/server_appliance.php';
 require 'oneandone/dvd.php';
+require 'oneandone/datacenter.php';
+require 'oneandone/pricing.php';
+require 'oneandone/ping.php';
+require 'oneandone/ping_auth.php';
+require 'oneandone/vpn.php';
+require 'oneandone/role.php';
 
 // Module Global Constants
 define('BASE_URL', 'https://cloudpanel-api.1and1.com');
 define('VERSION', '/v1');
 define('QUESTION_MARK', '?');
 define('SUCCESS_CODES', [200, 201, 202]);
-define('GOOD_STATES', ['ACTIVE', 'POWERED_ON', 'POWERED_OFF']);
+define('GOOD_STATES', ['ACTIVE', 'ENABLED', 'POWERED_ON', 'POWERED_OFF']);
 
 
 // Top-Level Module
@@ -158,6 +170,48 @@ class OneAndOne {
     public function dvd() {
 
         return new Dvd($this->api_token, $this->header);
+
+    }
+
+    // Datacenter Class Init
+    public function datacenter() {
+
+        return new Datacenter($this->api_token, $this->header);
+
+    }
+
+    // Pricing Class Init
+    public function pricing() {
+
+        return new Pricing($this->api_token, $this->header);
+
+    }
+
+    // Ping Class Init
+    public function ping() {
+
+        return new Ping($this->api_token, $this->header);
+
+    }
+
+    // PingAuth Class Init
+    public function pingAuth() {
+
+        return new PingAuth($this->api_token, $this->header);
+
+    }
+
+    // VPN Class Init
+    public function vpn() {
+
+        return new Vpn($this->api_token, $this->header);
+
+    }
+
+    // Role Class Init
+    public function role() {
+
+        return new Role($this->api_token, $this->header);
 
     }
     

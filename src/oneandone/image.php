@@ -167,31 +167,36 @@ class Image {
     }
 
 
-    public function waitFor() {
+    public function waitFor($timeout = 25, $interval = 15) {
 
-        // Check initial status and save image state
+        // Set counter for timeout
+        $counter = 0;
+
+        // Check initial status and save server state
         $initial_response = $this->get();
         $image_state = $initial_response['state'];
 
-        // Keep polling the image's state until good
+        // Keep polling the server's state until good
         while(!in_array($image_state, GOOD_STATES)) {
 
-            // Wait 30 seconds before polling again
-            sleep(30);
+            // Wait 60 seconds before polling again
+            sleep($interval);
 
-            // Check image state again
+            // Check server state again
             $current_response = $this->get();
             $image_state = $current_response['state'];
 
-            // Inform user when state is good
-            if(in_array($image_state, GOOD_STATES)) {
-
-                echo "\nSuccess!\n";
-                echo "Image state: $image_state \n";
-
+            // Iterate counter and check for timeout
+            $counter++;
+            if($counter == $timeout) {
+                echo "The operation timed out after $timeout minutes.\n";
+                break;
             }
 
         }
+
+        return "duration => $counter";
+
 
     }
 

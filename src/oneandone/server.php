@@ -9,6 +9,8 @@ class Server {
     protected $api_token;
     protected $header;
     public $id;
+    public $first_password;
+    public $first_ip;
     public $specs;
     const BASE_ENDPOINT = '/servers';
 
@@ -65,7 +67,9 @@ class Server {
             'firewall_policy_id' => null,
             'ip_id' => null,
             'load_balancer_id' => null,
-            'monitoring_policy_id' => null
+            'monitoring_policy_id' => null,
+            'rsa_key' => null,
+            'datacenter_id' => null
         ];
 
         // Clean out null values from POST body
@@ -89,6 +93,7 @@ class Server {
         // Store image ID and response body for later use
         $this->specs = $json;
         $this->id = $json['id'];
+        $this->first_password = $json['first_password'];
 
         return $json;
 
@@ -113,8 +118,13 @@ class Server {
         // Check response status
         Utilities::checkResponse($response->body, $response->status_code);
 
-        // Decode the response and return
-        return json_decode($response->body, true);
+        // Decode the response
+        $json = json_decode($response->body, true);
+
+        // Reload specs attribute
+        $this->specs = $json;
+
+        return $json;
 
     }
 
@@ -1105,7 +1115,7 @@ class Server {
 
     }
 
-    public function cloneServer($name, $server_id = null) {
+    public function cloneServer($args, $server_id = null) {
 
         // Build URI
         if($server_id) {
@@ -1115,12 +1125,13 @@ class Server {
         }
 
         // Build POST body
-        $body = [
-            'name' => $name
+        $args += [
+            'name' => null,
+            'datacenter_id' => null
         ];
 
         // Encode the POST body
-        $data = json_encode($body);
+        $data = json_encode($args);
 
         // Build URL
         $extension = "/$uri/clone";
@@ -1137,7 +1148,7 @@ class Server {
 
     }
 
-    public function waitFor($timeout = 25) {
+    public function waitFor($timeout = 25, $interval = 15) {
 
         // Set counter for timeout
         $counter = 0;
@@ -1145,24 +1156,18 @@ class Server {
         // Check initial status and save server state
         $initial_response = $this->get();
         $server_state = $initial_response['status']['state'];
+        $percent = $initial_response['status']['percent'];
 
         // Keep polling the server's state until good
-        while(!in_array($server_state, GOOD_STATES)) {
+        while((!in_array($server_state, GOOD_STATES)) || ($percent != null)) {
 
             // Wait 60 seconds before polling again
-            sleep(60);
+            sleep($interval);
 
             // Check server state again
             $current_response = $this->get();
             $server_state = $current_response['status']['state'];
-
-            // Inform user when state is good
-            if(in_array($server_state, GOOD_STATES)) {
-
-                echo "\nSuccess!\n";
-                echo "Server state: $server_state \n";
-
-            }
+            $percent = $current_response['status']['percent'];
 
             // Iterate counter and check for timeout
             $counter++;
@@ -1171,7 +1176,14 @@ class Server {
                 break;
             }
 
+            // Parse for first_ip address
+            if(count($current_response['ips']) == 1) {
+                $this->first_ip = $current_response['ips'][0];
+            }
+
         }
+
+        return "duration => $counter";
 
     }
 

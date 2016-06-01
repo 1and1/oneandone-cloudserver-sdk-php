@@ -19,16 +19,24 @@
 - [Usages](#usages)
 - [Server Appliances](#server-appliances)
 - [DVD's](#dvds)
+- [Data Centers](#datacenters)
+- [Pricing](#pricing)
+- [Ping](#ping)
+- [Ping Auth](#ping-auth)
+- [VPN's](#vpn)
+- [Roles](#roles)
 
 
 
 # <a name="wait-for"></a>"waitFor()"
 
-Use the `waitFor()` method on any major class object to poll its resource until an `"ACTIVE"`, `"POWERED_ON"`, or `"POWERED_OFF"` state is returned.  This is necessary when chaining together multiple actions that take a while to deploy.  The `waitFor()` method is available on the `Server`, `Image`, `SharedStorage`, `FirewallPolicy`, `LoadBalancer`, `PrivateNetwork`, and `MonitoringPolicy` classes.  See the example below:
+Use the `waitFor()` method on any major class object to poll its resource until an `"ACTIVE"`, `"ENABLED"`, `"POWERED_ON"`, or `"POWERED_OFF"` state is returned.  This is necessary when chaining together multiple actions that take some time to deploy.  The `waitFor()` method is available on the `Server`, `Image`, `SharedStorage`, `Vpn`, `FirewallPolicy`, `LoadBalancer`, `PrivateNetwork`, and `MonitoringPolicy` classes.  It returns a string containing the execution duration.  See the example below:
 ```
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -59,27 +67,35 @@ $my_server = [
 echo "Creating server...\n";
 $res = $server->create($my_server);
 // Wait for Server to Deploy
-$server->waitFor();
+echo $server->waitFor();
 
 
 
 // Add a New IP to the Server
 echo "Adding an IP to the server...\n";
 $res = $server->addIp();
-$new_ip = $res['ips'][1]['id'];
 ```
-You may pass in an optional `$timeout` value (in minutes) which stops the `waitFor()` method from polling after the given amount of time.  `$timeout` is only available on the `Server` class and is set to 25 minutes by default.
+You may pass in an optional `timeout` value (in minutes) which stops the `waitFor()` method from polling after the given amount of time.  `timeout` is set to 25 minutes by default.  You may also set the `interval` value (in seconds).  The default value for `interval` varies by class.
 
 
 
 # <a name="attributes"></a>Class Attributes
 
-When creating a new resource (Server, Image, etc) the class object will automatically parse the returned JSON response and store its unique ID for later use.  This allows you to perform further actions on the resource without having to pass in its unique identifier every time.  The ID is stored in the `id` attribute.  If we extend our previous example, notice how we add a load balancer to the server's IP:
+When creating a new resource (Server, Image, etc) the class object will automatically parse the returned JSON response and store its unique ID for later use.  This allows you to perform further actions on the resource without having to pass its unique identifier each time.  The ID is stored in the `id` attribute. 
+
+In addition to the `id` attribute, you also have access to the following:
+- `first_ip`: the initial IP address assigned to your new server.
+- `first_password`: the initial password for connecting to your new server.
+- `specs`: associative array containing all attributes parsed from JSON response.
+
+If we extend our previous example, notice how we add a load balancer using the `first_ip` attribute:
 
 ```
 <?php
 
-use OneAndOne;
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
 
 // Instantiate library with your API Token
 $client = new OneAndOne('<API-TOKEN>');
@@ -110,14 +126,7 @@ $my_server = [
 echo "Creating server...\n";
 $res = $server->create($my_server);
 // Wait for Server to Deploy
-$server->waitFor();
-
-
-
-// Add a New IP to the Server
-echo "Adding an IP to the server...\n";
-$res = $server->addIp();
-$new_ip = $res['ips'][1]['id'];
+echo $server->waitFor();
 
 
 
@@ -146,23 +155,21 @@ $args = [
 echo "Creating load balancer...\n";
 $res = $load_balancer->create($args);
 // Wait for Load Balancer to Deploy
-$load_balancer->waitFor();
+echo $load_balancer->waitFor();
 
 
 
 // Add the Load Balancer to the New IP
 $add_lb = [
-    'ip_id' => $new_ip,
+    'ip_id' => $server->first_ip['id'],
     'load_balancer_id' => $load_balancer->id
 ];
 
 echo "Adding load balancer to the IP...\n";
 $res = $server->addLoadBalancer($add_lb);
 // Wait for load balancer to be added
-$server->waitFor();
+echo $server->waitFor();
 ```
-
-The class object will also store the entire JSON response body in the `specs` attribute.  This allows you to access any other information from your resource that you might want to use in future operations.  As mentioned before, the `id` and `specs` attributes are only available on a class object *after* creating the resource itself.
 
 
 
@@ -355,7 +362,24 @@ $res = $server->snapshot('<SERVER-ID>');
 ```
 
 
-**Create a server:**
+**Create a fixed server:**
+
+*Note:* `appliance_id`, takes an `image_id` string
+```
+$my_server = [
+    'name' => 'Example Server',
+    'hardware' => [
+        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
+    ],
+    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
+    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49'
+];
+
+$res = $server->create($my_server);
+```
+
+
+**Create a custom server:**
 
 *Note:* A Hdd's `size` must be a multiple of `20`
 
@@ -378,6 +402,50 @@ $my_server = [
         'hdds' => $hdds
     ],
     'appliance_id' => '<IMAGE-ID>'
+];
+
+$res = $server->create($my_server);
+```
+
+
+**Create a server with SSH Key access:**
+
+*Note:* `appliance_id`, takes an `image_id` string
+```
+$pub_key = '<PUB-KEY>';
+
+$my_server = [
+    'name' => 'Example Server',
+    'hardware' => [
+        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
+    ],
+    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
+    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49',
+    'rsa_key' => $pub_key
+];
+
+$res = $server->create($my_server);
+```
+
+
+**Create a server with SSH Key access and explicitly declare your datacenter:**
+
+*Note:* `appliance_id`, takes an `image_id` string
+
+*Note:* `appliance_id` location must match datacenter location (ex. DE and DE)
+```
+$pub_key = '<PUB-KEY>';
+$datacenter = '<DC-ID>';
+
+$my_server = [
+    'name' => 'Example Server',
+    'hardware' => [
+        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
+    ],
+    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
+    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49',
+    'rsa_key' => $pub_key,
+    'datacenter_id' => $datacenter
 ];
 
 $res = $server->create($my_server);
@@ -462,14 +530,17 @@ $res = $server->createSnapshot('<SERVER-ID>');
 **Clone a server:**
 
 ```
-$name = 'Clone Server';
+$args = [
+    'name' => 'Clone Server',
+    'datacenter_id' => '<DC-ID>'
+];
 
 
-$res = $server->cloneServer($name);
+$res = $server->cloneServer($args);
 
 OR
 
-$res = $server->cloneServer($name, '<SERVER-ID>');
+$res = $server->cloneServer($args, '<SERVER-ID>');
 ```
 
 
@@ -2272,4 +2343,331 @@ $res = $dvd->all();
 
 ```
 $res = $dvd->get('<DVD-ID>');
+```
+
+
+
+# <a name="datacenters"></a>Data Centers
+
+
+Get started by instantiating a `Datacenter` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$datacenter = $client->datacenter();
+```
+
+**List all available data centers:**
+
+```
+$res = $datacenter->all();
+```
+
+
+**Returns information about a data center:**
+
+```
+$res = $datacenter->get('<DATACENTER-ID>');
+```
+
+
+
+# <a name="pricing"></a>Pricing
+
+
+Get started by instantiating a `Pricing` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$pricing = $client->pricing();
+```
+
+**List pricing for all available resources in Cloud Panel:**
+
+```
+$res = $pricing->all();
+```
+
+
+
+# <a name="ping"></a>Ping
+
+
+Get started by instantiating a `Ping` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$ping = $client->ping();
+```
+
+**Returns `"PONG"` if the API is running:**
+
+```
+$res = $ping->get();
+```
+
+
+
+# <a name="ping-auth"></a>Ping Auth
+
+
+Get started by instantiating a `PingAuth` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$ping_auth = $client->pingAuth();
+```
+
+**Returns `"PONG"` if the API is running and your token is valid:**
+
+```
+$res = $ping_auth->get()
+```
+
+
+
+# <a name="vpn"></a>VPN's
+
+Get started by instantiating a `Vpn` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$vpn = $client->vpn();
+```
+
+
+
+**List all VPN's:**
+
+```
+$res = $vpn->all();
+```
+
+
+**Retrieve a single VPN:**
+
+```
+$res = $vpn->get();
+
+OR
+
+$res = $vpn->get('<VPN-ID>');
+```
+
+
+**Create a VPN:**
+
+```
+$args = [
+    'name' => 'Example VPN'
+];
+
+$res = $vpn->create($args);
+```
+
+
+**Modify a VPN:**
+
+```
+$args = [
+    'name' => 'New Name'
+];
+
+$res = $vpn->modify($args);
+
+OR
+
+$res = $vpn->modify($args, '<VPN-ID>');
+```
+
+
+**Delete a VPN:**
+
+```
+$res = $vpn->delete();
+
+OR
+
+$res = $vpn->delete('<VPN-ID>');
+```
+
+
+**Download a VPN's config file:**
+
+```
+$res = $vpn->downloadConfig();
+
+OR
+
+$res = $vpn->downloadConfig('<VPN-ID>');
+```
+
+
+
+# <a name="roles"></a>Roles
+
+Get started by instantiating an `Role` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$role = $client->role();
+```
+
+
+
+**List all available roles on your account:**
+
+```
+$res = $role->all();
+```
+
+
+**Retrieve a single role:**
+
+```
+$res = $role->get();
+
+OR
+
+$res = $role->get('<ROLE-ID>');
+```
+
+
+**Create a role:**
+
+```
+$name = 'Example Role';
+
+$res = $role->create($name);
+```
+
+
+**Modify a role:**
+
+```
+$args = [
+    'name' => 'New Name',
+    'state' => 'ACTIVE'
+];
+
+$res = $role->modify($args);
+
+OR
+
+$res = $role->modify($args, '<ROLE-ID>');
+```
+
+
+**Delete a role:**
+
+```
+$res = $role->delete();
+
+OR
+
+$res = $role->delete('<ROLE-ID>');
+```
+
+
+
+**List a role's permissions:**
+
+```
+$res = $role->permissions();
+
+OR
+
+$res = $role->permissions('<ROLE-ID>');
+```
+
+
+
+**Modify a role's permissions:**
+
+```
+$server_perms = [
+  'show' => True,
+  'create' => True,
+  'delete' => False
+];
+
+$args = [
+    'servers' => $server_perms
+];
+
+$res = $role->modifyPermissions($args);
+
+OR
+
+$res = $role->modifyPermissions($args, '<ROLE-ID>');
+```
+
+
+
+**List the users assigned to a role:**
+
+```
+$res = $role->users();
+
+OR
+
+$res = $role->users('<ROLE-ID>');
+```
+
+
+
+**Assign new users to a role:**
+
+```
+$users = ['<USER1-ID>', '<USER2-ID>']
+
+$res = $role->addUsers($users);
+
+OR
+
+$res = $role->addUsers($users, '<ROLE-ID>');
+```
+
+
+
+**Returns information about a user assigned to a role:**
+
+```
+$res = $role->user('<USER-ID>');
+
+OR
+
+$res = $role->user('<USER-ID>', '<ROLE-ID>');
+```
+
+
+
+**Unassign a user from a role:**
+
+```
+$res = $role->removeUser('<USER-ID>');
+
+OR
+
+$res = $role->removeUser('<USER-ID>', '<ROLE-ID>');
+```
+
+
+
+**Clone a role:**
+
+```
+$name = 'Role Clone'
+
+$res = $role->clone($name);
+
+OR
+
+$res = $role->clone($name, '<ROLE-ID>');
 ```

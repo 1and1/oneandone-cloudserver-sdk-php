@@ -558,31 +558,35 @@ class MonitoringPolicy {
 
     }
 
-    public function waitFor() {
+    public function waitFor($timeout = 25, $interval = 5) {
 
-        // Check initial status and save monitoring policy state
+        // Set counter for timeout
+        $counter = 0;
+
+        // Check initial status and save server state
         $initial_response = $this->get();
-        $monitoring_policy_state = $initial_response['state'];
+        $mp_state = $initial_response['state'];
 
-        // Keep polling the monitoring policy's state until good
-        while(!in_array($monitoring_policy_state, GOOD_STATES)) {
+        // Keep polling the server's state until good
+        while(!in_array($mp_state, GOOD_STATES)) {
 
-            // Wait 1 second before polling again
-            sleep(1);
+            // Wait 60 seconds before polling again
+            sleep($interval);
 
-            // Check monitoring policy state again
+            // Check server state again
             $current_response = $this->get();
-            $monitoring_policy_state = $current_response['state'];
+            $mp_state = $current_response['state'];
 
-            // Inform user when state is good
-            if(in_array($monitoring_policy_state, GOOD_STATES)) {
-
-                echo "\nSuccess!\n";
-                echo "Monitoring Policy state: $monitoring_policy_state \n";
-
+            // Iterate counter and check for timeout
+            $counter++;
+            if($counter == $timeout) {
+                echo "The operation timed out after $timeout minutes.\n";
+                break;
             }
 
         }
+
+        return "duration => $counter";
 
     }
 

@@ -1,9 +1,10 @@
 {
-    "name": "1and1 PHP SDK",
+    "name": "1and1/1and1-sdk-php",
     "description": "Official PHP SDK for the 1and1 REST API",
+    "version": "1.0.0",
     "homepage": "https://github.com/1and1/oneandone-cloudserver-sdk-php",
     "license": "Apache 2.0",
-    "keywords": ["1and1", "oneandone", "PHP SDK", "cloud", "server"],
+    "keywords": ["1and1", "oneandone", "PHP SDK", "cloud", "server", "api"],
     "authors": [
         {
             "name": "Tyler Burkhardt",
@@ -11,6 +12,7 @@
         }
     ],
     "require": {
+        "php": ">=5.3",
         "rmccue/requests": ">=1.0"
     },
     "require-dev": {
