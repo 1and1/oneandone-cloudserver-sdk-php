@@ -34,7 +34,7 @@ Before you begin you will need to have signed-up for a 1&amp;1 account. The cred
 
 ### Installation
 
-You can install the latest stable version using <a href='https://getcomposer.org/'>Composer</a>.  If you don't already have Composer installed, follow their installation instructions <a href='https://getcomposer.org/doc/00-intro.md'>here</a>.  Once you have Composer installed, add the snippet below to your `composer.json` file, and then run `composer install` from your terminal.  This will create a `vendor` directory in your repo, and now allows you to use the 1and1 PHP SDK.
+You can install the latest stable version using <a href='https://getcomposer.org/'>Composer</a>.  If you don't already have Composer installed, follow their installation instructions <a href='https://getcomposer.org/doc/00-intro.md'>here</a>.  Once you have Composer installed, add the snippet below to your `composer.json` file, and then run `composer install` (if you installed Composer globally), or `php composer.phar install` (if you installed locally) from your terminal.  This will create a `vendor` directory in your repo, and now allows you to use the 1and1 PHP SDK.
 
 ```json
 {
@@ -52,6 +52,17 @@ require(__DIR__.'/vendor/autoload.php');
 
 use src\oneandone\OneAndOne;
 ```
+
+**Note:** An issue has been discoverd on Linux operating systems that prevents the SDK class from being autoloaded.  After completing all of the steps above, you will need to run `composer dumpautoload -o` (global install), or `php composer.phar dumpautoload -o` (local install) from inside the directory that you originally ran `composer install`.  Your file structure should look something like this:
+```
+/repo-root
+  - composer.json
+  - composer.lock
+  - composer.phar (if you installed composer locally)
+  - create_server.php
+  - /vendor
+```
+After executing the `dumpautoload` command, you should then be able to run your `create_server.php` script.
 
 
 ### Authentication
