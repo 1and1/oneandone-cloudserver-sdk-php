@@ -94,7 +94,7 @@ The following examples are meant to give you a general overview of some of the t
 
 
 
-### Creating a Server
+### Creating a Cloud Server
 
 ```php
 <?php
@@ -122,11 +122,52 @@ $hdds = [$hdd1];
 $my_server = [
     'name' => 'Example Server',
     'description' => 'Example Desc',
+    'server_type' => 'cloud',
     'hardware' => [
         'vcore' => 1,
         'cores_per_processor' => 1,
         'ram' => 1,
         'hdds' => $hdds
+    ],
+    'appliance_id' => '<IMAGE-ID>'
+];
+
+// Perform Request
+$res = $server->create($my_server);
+echo json_encode($res, JSON_PRETTY_PRINT);
+```
+
+### Creating a Baremetal Server
+
+```php
+<?php
+
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
+
+// Instantiate library with your API Token
+$client = new OneAndOne('<API-TOKEN>');
+
+
+// Instantiate Server Object
+$server = $client->server();
+
+// Create HDD's
+$hdd1 = [
+    'size' => 120,
+    'is_main' => True
+];
+
+$hdds = [$hdd1];
+
+// Create Server
+$my_server = [
+    'name' => 'Example Server',
+    'description' => 'Example Desc',
+    'server_type' => 'baremetal',
+    'hardware' => [
+       'baremetal_model_id' =>'<BAREMETAL-MODEL-ID>'
     ],
     'appliance_id' => '<IMAGE-ID>'
 ];
@@ -570,6 +611,7 @@ $server = $client->server();
 
 $my_server = [
     'name' => 'Example App Server',
+    'server_type' => 'cloud',
     'hardware' => [
         'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
     ],

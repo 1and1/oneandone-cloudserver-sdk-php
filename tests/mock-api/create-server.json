@@ -5,6 +5,7 @@
   "description": "My server description",
   "creation_date": "2015-05-07T08:25:37+00:00",
   "first_password": "Nm4gP97xSw",
+  "server_type":"cloud",
   "status": {
     "state": "DEPLOYING",
     "percent": 20

@@ -1,11 +1,11 @@
 <?php
 
-require(dirname(__DIR__).'/vendor/autoload.php');
+require(dirname(__DIR__) . '/vendor/autoload.php');
 
 use src\oneandone\OneAndOne;
 
-$client = new OneAndOne('<API-TOKEN>');
-
+// Instantiate library with your API Token
+$client = new OneAndOne('d24a593904e74759aeee34d33f1699bc');
 
 
 // Create Load Balancer
@@ -21,7 +21,7 @@ $rule1 = [
 $rules = [$rule1];
 
 $args = [
-    'name' => 'Example LB',
+    'name' => 'Example LB1',
     'health_check_test' => 'TCP',
     'health_check_interval' => 40,
     'persistence' => True,
@@ -34,7 +34,6 @@ echo "Creating load balancer...\n";
 $res = $load_balancer->create($args);
 // Wait for Load Balancer to Deploy
 echo $load_balancer->waitFor();
-
 
 
 // Create Firewall Policy
@@ -50,7 +49,7 @@ $rule1 = [
 $rules = [$rule1];
 
 $args = [
-    'name' => 'Example Firewall',
+    'name' => 'Example Firewall1',
     'description' => 'Example Desc',
     'rules' => $rules
 ];
@@ -61,24 +60,41 @@ $res = $firewall_policy->create($args);
 echo $firewall_policy->waitFor();
 
 
+echo "\nFetching fixed instace...\n";
+$server = $client->server();
+$fixedInstaces = $server->listFixed();
+$fixedInstace = $fixedInstaces[0];
+
+echo "\nFetching server appliance...\n";
+$serverAppliancesApi = $client->serverAppliance();
+$params = [
+    'q' => 'centos6'
+];
+$serverAppliances = $serverAppliancesApi->all($params);
+$serverAppliance = $serverAppliances[0];
+
+echo "\nFetching data center...\n";
+$dcApi = $client->datacenter();
+$dcs = $dcApi->all();
+$dc = $dcs[0];
 
 // Create Server
-$server = $client->server();
+
 
 $my_server = [
-    'name' => 'Example App Server',
+    'name' => 'Example App Server1',
+    'server_type' => 'cloud',
     'hardware' => [
-        'fixed_instance_size_id' => '65929629F35BBFBA63022008F773F3EB'
+        'fixed_instance_size_id' => $fixedInstace['id']
     ],
-    'appliance_id' => '6C902E5899CC6F7ED18595EBEB542EE1',
-    'datacenter_id' => '5091F6D8CBFEF9C26ACE957C652D5D49'
+    'appliance_id' => $serverAppliance['id'],
+    'datacenter_id' => $dc['id']
 ];
 
 echo "\nCreating server...\n";
 $res = $server->create($my_server);
 // Wait for Server to Deploy
 echo $server->waitFor();
-
 
 
 // Add the Load Balancer to the New IP
@@ -93,7 +109,6 @@ $res = $server->addLoadBalancer($add_lb);
 echo $server->waitFor();
 
 
-
 // Add the Firewall Policy to the New IP
 $add_firewall = [
     'ip_id' => $server->first_ip['id'],
@@ -104,7 +119,6 @@ echo "\nAdding firewall policy to the IP...\n";
 $res = $server->addFirewall($add_firewall);
 // Wait for firewall policy to be added
 echo $server->waitFor();
-
 
 
 // Cleanup

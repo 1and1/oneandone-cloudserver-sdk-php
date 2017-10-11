@@ -16,7 +16,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAll() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-servers.json');
+        $file = file_get_contents('mock-api/list-servers.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -34,7 +34,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testCreate() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/create-server.json');
+        $file = file_get_contents('mock-api/create-server.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -58,6 +58,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
                 'ram' => 1,
                 'hdds' => $hdds
             ],
+            'server_type' => 'cloud',
             'appliance_id' => '07C170D67C8EC776933FCFF1C299C1C5'
         ];
 
@@ -65,13 +66,14 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals($res['id'], '4B86A3ACC4CEB7A89E012E49FC17F312');
+        $this->assertEquals($res['server_type'], 'cloud');
 
     }
 
     public function testGet() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server.json');
+        $file = file_get_contents('mock-api/get-server.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -89,7 +91,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testModify() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/modify-server.json');
+        $file = file_get_contents('mock-api/modify-server.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -113,7 +115,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testDelete() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/delete-server.json');
+        $file = file_get_contents('mock-api/delete-server.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -131,7 +133,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testListFixed() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/fixed-server-flavors.json');
+        $file = file_get_contents('mock-api/fixed-server-flavors.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -149,7 +151,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testGetFixed() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-fixed-server.json');
+        $file = file_get_contents('mock-api/get-fixed-server.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -163,11 +165,47 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($res['id'], '8C626C1A7005D0D1F527143C413D461E');
 
     }
+  
+  public function testListBaremetalModels() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('mock-api/list-baremetal-models.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('listBaremetalModels')
+        ->willReturn($data);
+    
+    // Perform call
+    $res = $this->stub->listBaremetalModels();
+    
+    // Assert
+    $this->assertEquals($res[0]['id'], '8C626C1A7005D0D1F527143C413D461E');
+    
+  }
+  
+  public function testGetBaremetalModel() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('mock-api/get-baremetal-model.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('getBaremetalModel')
+        ->willReturn($data);
+    
+    // Perform call
+    $res = $this->stub->getBaremetalModel('8C626C1A7005D0D1F527143C413D461E');
+    
+    // Assert
+    $this->assertEquals($res['id'], '8C626C1A7005D0D1F527143C413D461E');
+    
+  }
 
     public function testHardware() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-hardware.json');
+        $file = file_get_contents('mock-api/get-hardware.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -185,7 +223,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testModifyHardware() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/modify-server-hardware.json');
+        $file = file_get_contents('mock-api/modify-server-hardware.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -208,7 +246,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testHdds() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-hdds.json');
+        $file = file_get_contents('mock-api/list-hdds.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -226,7 +264,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAddHdds() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/add-hdd.json');
+        $file = file_get_contents('mock-api/add-hdd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -251,7 +289,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testHdd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-hdd.json');
+        $file = file_get_contents('mock-api/get-hdd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -270,7 +308,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testModifyHdd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/modify-server-hdd.json');
+        $file = file_get_contents('mock-api/modify-server-hdd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -289,7 +327,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testDeleteHdd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-hdd.json');
+        $file = file_get_contents('mock-api/remove-hdd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -308,7 +346,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testImage() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-image.json');
+        $file = file_get_contents('mock-api/get-server-image.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -326,7 +364,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testInstallImage() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/reinstall-image.json');
+        $file = file_get_contents('mock-api/reinstall-image.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -349,7 +387,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testIps() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-server-ips.json');
+        $file = file_get_contents('mock-api/list-server-ips.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -367,7 +405,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAddIp() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/add-server-ip.json');
+        $file = file_get_contents('mock-api/add-server-ip.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -385,7 +423,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testIp() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-ip.json');
+        $file = file_get_contents('mock-api/get-server-ip.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -404,7 +442,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testReleaseIp() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-server-ip.json');
+        $file = file_get_contents('mock-api/remove-server-ip.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -427,7 +465,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testFirewall() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-ip-fp.json');
+        $file = file_get_contents('mock-api/get-server-ip-fp.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -446,7 +484,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testRemoveFirewall() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-ip-fp.json');
+        $file = file_get_contents('mock-api/remove-ip-fp.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -465,7 +503,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAddFirewall() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/assign-ip-fp.json');
+        $file = file_get_contents('mock-api/assign-ip-fp.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -490,7 +528,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testLoadBalancers() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-server-lbs.json');
+        $file = file_get_contents('mock-api/list-server-lbs.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -509,7 +547,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAddLoadBalancer() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/add-lb.json');
+        $file = file_get_contents('mock-api/add-lb.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -534,7 +572,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testRemoveLoadBalancer() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/detach-server-lb.json');
+        $file = file_get_contents('mock-api/detach-server-lb.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -558,7 +596,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testStatus() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-status.json');
+        $file = file_get_contents('mock-api/get-server-status.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -576,7 +614,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testChangeStatus() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/change-server-status.json');
+        $file = file_get_contents('mock-api/change-server-status.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -596,11 +634,37 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($res['status']['state'], 'POWERING_OFF');
 
     }
-
-    public function testDvd() {
+  
+  public function testRecoveryReboot() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('mock-api/change-server-status.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('RecoveryReboot')
+        ->willReturn($data);
+    
+    // Perform call
+    $action = [
+        'method' => 'SOFTWARE',
+        'recovery_mode' => true,
+        'recovery_image_id' => '81504C620D98BCEBAA5202D145203B4B'
+    ];
+    
+    $res = $this->stub->recoveryReboot($action,
+        '39AA65F5D5B02FA02D58173094EBAF95');
+    
+    // Assert
+    $this->assertEquals($res['status']['state'], 'POWERING_OFF');
+    
+  }
+  
+  
+  public function testDvd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-dvd.json');
+        $file = file_get_contents('mock-api/get-server-dvd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -618,7 +682,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testEjectDvd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/eject-dvd.json');
+        $file = file_get_contents('mock-api/eject-dvd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -636,7 +700,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testLoadDvd() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/load-dvd.json');
+        $file = file_get_contents('mock-api/load-dvd.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -656,7 +720,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testPrivateNetworks() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-server-pns.json');
+        $file = file_get_contents('mock-api/list-server-pns.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -674,7 +738,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testPrivateNetwork() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/get-server-pn.json');
+        $file = file_get_contents('mock-api/get-server-pn.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -695,7 +759,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testRemovePrivateNetwork() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-server-pn.json');
+        $file = file_get_contents('mock-api/remove-server-pn.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -716,7 +780,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testAddPrivateNetwork() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/attach-server-pn.json');
+        $file = file_get_contents('mock-api/attach-server-pn.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -737,7 +801,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testCreateSnapshot() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/create-snapshot.json');
+        $file = file_get_contents('mock-api/create-snapshot.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -756,7 +820,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testSnapshot() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/list-snapshots.json');
+        $file = file_get_contents('mock-api/list-snapshots.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -774,7 +838,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testRestoreSnapshot() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/restore-snapshot.json');
+        $file = file_get_contents('mock-api/restore-snapshot.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -795,7 +859,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testDeleteSnapshot() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/delete-snapshot.json');
+        $file = file_get_contents('mock-api/delete-snapshot.json');
         $data = json_decode($file, true);
 
         // Create stub
@@ -816,7 +880,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testCloneServer() {
 
         // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/clone-server.json');
+        $file = file_get_contents('mock-api/clone-server.json');
         $data = json_decode($file, true);
 
         // Create stub
