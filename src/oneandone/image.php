@@ -54,7 +54,11 @@ class Image {
             'name' => null,
             'description' => null,
             'frequency' => null,
-            'num_images' => null
+            'num_images' => null,
+            'source' => null,
+            'url' => null,
+            'os_id' => null,
+            'type' => null
         ];
 
         // Encode the POST body
