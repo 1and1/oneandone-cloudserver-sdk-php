@@ -65,8 +65,7 @@
     }
   },
   "ports": [],
-  "processes": [],
-  "cloudpanel_id": "mo99AA4_1"
+  "processes": []
 },
 {
   "id": "C81F17AF6F6F6717372B79A882B25E92",
@@ -146,7 +145,6 @@
     "alert_when": false,
     "alert": true
   }
-  ],
-  "cloudpanel_id": "mo99AA4_2"
+  ]
 }
 ]

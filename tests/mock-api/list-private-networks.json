@@ -7,8 +7,7 @@
   "subnet_mask": "255.255.255.0",
   "state": "ACTIVE",
   "creation_date": "2015-04-28T10:21:19+00:00",
-  "servers": [],
-  "cloudpanel_id": "pn99AA4_1"
+  "servers": []
 },
 {
   "id": "6058B5DAF8182D20E1C68C3CED78EE23",
@@ -18,7 +17,6 @@
   "subnet_mask": null,
   "state": "ACTIVE",
   "creation_date": "2015-04-28T10:21:19+00:00",
-  "servers": [],
-  "cloudpanel_id": "pn99AA4_1"
+  "servers": []
 }
 ]

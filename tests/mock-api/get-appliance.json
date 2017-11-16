@@ -11,6 +11,5 @@
   "Windows",
   "SQL Server"
   ],
-  "automatic_installation": true,
   "type": "IMAGE"
 }
