@@ -24,6 +24,7 @@ use src\oneandone\Ping;
 use src\oneandone\PingAuth;
 use src\oneandone\Vpn;
 use src\oneandone\Role;
+use src\oneandone\BlockStorage;
 
 // Include Library Classes/Traits
 require(dirname(__DIR__).'/vendor/autoload.php');
@@ -48,6 +49,7 @@ require 'oneandone/ping.php';
 require 'oneandone/ping_auth.php';
 require 'oneandone/vpn.php';
 require 'oneandone/role.php';
+require 'oneandone/block_storage.php';
 
 // Module Global Constants
 define('BASE_URL', 'https://cloudpanel-api.1and1.com');
@@ -212,6 +214,13 @@ class OneAndOne {
     public function role() {
 
         return new Role($this->api_token, $this->header);
+
+    }
+
+    // Block Storage Class Init
+    public function blockStorage() {
+
+        return new BlockStorage($this->api_token, $this->header);
 
     }
     
