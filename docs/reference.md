@@ -26,6 +26,7 @@
 - [VPN's](#vpn)
 - [Roles](#roles)
 - [Block Storages](#block-storages)
+- [SSH Keys](#ssh-keys)
 
 
 
@@ -2766,4 +2767,75 @@ $res = $block_storage->detachBlockStorage();
 OR
 
 $res = $block_storage->detachBlockStorage('<BLOCK-STORAGE-ID>');
+```
+
+
+
+# <a name="ssh-keys"></a>SSH Keys
+
+Get started by instantiating an `SshKey` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$ssh_key = $client->sshKey();
+```
+
+
+
+**List all SSH Keys:**
+
+```
+$res = $ssh_key->all();
+```
+
+
+**Retrieve a single SSH Key:**
+
+```
+$res = $ssh_key->get();
+
+OR
+
+$res = $ssh_key->get('<SSH-KEY-ID>');
+```
+
+
+**Create an SSH Key:**
+
+```
+$args = [
+    'name' => 'Example SSH Key',
+    'description' => 'Test Description',
+    'public_key' => '<PUBLIC-KEY>'
+];
+
+$res = $ssh_key->create($args);
+```
+
+
+**Modify an SSH Key:**
+
+```
+$args = [
+    'name' => 'New Name',
+    'description' => 'New Description'
+];
+
+$res = $vpn->modify($args);
+
+OR
+
+$res = $ssh_key->modify($args, '<VPN-ID>');
+```
+
+
+**Delete an SSH Key:**
+
+```
+$res = $ssh_key->delete();
+
+OR
+
+$res = $ssh_key->delete('<SSH-KEY-ID>');
 ```
