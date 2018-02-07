@@ -4,13 +4,13 @@ namespace src\oneandone;
 
 use Requests;
 
-class Image {
+class SshKey {
 
     protected $api_token;
     protected $header;
     public $id;
     public $specs;
-    const BASE_ENDPOINT = '/images';
+    const BASE_ENDPOINT = '/ssh_keys';
 
     // Constructor
     public function __construct($token, $header) {
@@ -20,7 +20,7 @@ class Image {
 
     }
 
-    // Image methods
+    // SSH Key methods
     public function all($params = []) {
 
         // Build query parameter object
@@ -50,15 +50,9 @@ class Image {
 
         // Build POST body
         $args += [
-            'server_id' => null,
             'name' => null,
             'description' => null,
-            'frequency' => null,
-            'num_images' => null,
-            'source' => null,
-            'url' => null,
-            'os_id' => null,
-            'type' => null,
+            'public_key' => null
         ];
 
         // Encode the POST body
@@ -84,11 +78,11 @@ class Image {
 
     }
 
-    public function get($image_id = null) {
+    public function get($ssh_key_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($ssh_key_id) {
+            $uri = $ssh_key_id;
         }else{
             $uri = $this->id;
         }
@@ -108,11 +102,11 @@ class Image {
 
     }
 
-    public function modify($args, $image_id = null) {
+    public function modify($args, $ssh_key_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($ssh_key_id) {
+            $uri = $ssh_key_id;
         }else{
             $uri = $this->id;
         }
@@ -120,8 +114,7 @@ class Image {
         // Build PUT body
         $args += [
             'name' => null,
-            'description' => null,
-            'frequency' => null
+            'description' => null
         ];
 
         // Clean out null values from PUT body
@@ -146,11 +139,11 @@ class Image {
     }
 
 
-    public function delete($image_id = null) {
+    public function delete($ssh_key_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($ssh_key_id) {
+            $uri = $ssh_key_id;
         }else{
             $uri = $this->id;
         }
@@ -176,19 +169,19 @@ class Image {
         // Set counter for timeout
         $counter = 0;
 
-        // Check initial status and save server state
+        // Check initial status and save ssh key state
         $initial_response = $this->get();
-        $image_state = $initial_response['state'];
+        $ssh_key_state = $initial_response['state'];
 
-        // Keep polling the server's state until good
-        while(!in_array($image_state, GOOD_STATES)) {
+        // Keep polling the ssh key's state until good
+        while(!in_array($ssh_key_state, GOOD_STATES)) {
 
-            // Wait 60 seconds before polling again
+            // Wait interval in seconds before polling again
             sleep($interval);
 
-            // Check server state again
+            // Check ssh key state again
             $current_response = $this->get();
-            $image_state = $current_response['state'];
+            $ssh_key_state = $current_response['state'];
 
             // Iterate counter and check for timeout
             $counter++;
@@ -200,7 +193,6 @@ class Image {
         }
 
         return "duration => $counter";
-
 
     }
 
