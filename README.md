@@ -17,6 +17,8 @@ This guide will show you how to programmatically use the 1&amp;1 library to perf
   - [Creating a Firewall Policy](#creating-a-firewall-policy)
   - [Creating a Load Balancer](#creating-a-load-balancer)
   - [Creating a Monitoring Policy](#creating-a-monitoring-policy)
+  - [Creating a Block Storage](#creating-a-block-storage)
+  - [Creating an SSH Key](#creating-an-ssh-key)
   - [Updating Server Cores, Memory, and Disk](#updating-server-cores-memory-and-disk)
   - [Listing Servers, Images, Shared Storages, and More](#listing-servers-images-shared-storages-and-more )
 - [Example App](#example-app)
@@ -384,6 +386,66 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 
 
+### Creating a Block Storage
+
+```php
+<?php
+
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
+
+// Instantiate library with your API Token
+$client = new OneAndOne('<API-TOKEN>');
+
+
+// Instantiate Block Storage Object
+$block_storage = $client->blockStorage();
+
+// Create Block Storage
+$args = [
+    'name' => 'My new block storage',
+    'description' => 'My block storage description',
+    'size' => 40,
+    'server' => '<SERVER-ID>',
+    'datacenter_id' => '<DATACENTER-ID>'
+];
+
+// Perform Request
+$res = $block_storage->create($args);
+echo json_encode($res, JSON_PRETTY_PRINT);
+```
+
+
+### Creating an SSH Key
+
+```php
+<?php
+
+require(__DIR__.'/vendor/autoload.php');
+
+use src\oneandone\OneAndOne;
+
+// Instantiate library with your API Token
+$client = new OneAndOne('<API-TOKEN>');
+
+
+// Instantiate SshKey Object
+$ssh_key = $client->sshKey();
+
+// Create SSH Key
+$args = [
+    'name' => 'Test SSH Key',
+    'description' => 'Test description',
+    'public_key' => '<PUBLIC-KEY>'
+];
+
+// Perform Request
+$res = $ssh_key->create($args);
+echo json_encode($res, JSON_PRETTY_PRINT);
+```
+
+
 ### Updating Server Cores, Memory, and Disk
 
 1&amp;1 allows users to dynamically update cores, memory, and disk independently of each other. This removes the restriction of needing to upgrade to the next size up to receive an increase in memory. You can now simply increase the instances memory keeping your costs in-line with your resource needs.
@@ -490,6 +552,20 @@ $image = $client->image();
 
 $res = $image->all();
 echo json_encode($res, JSON_PRETTY_PRINT);
+
+
+# List all block storages on your account
+$block_storage = $client->blockStorage();
+
+$res = $block_storage->all();
+echo json_encode($res, JSON_PRETTY_PRINT);
+
+
+# List all ssh keys on your account
+$ssh_key = $client->sshKey();
+
+$res = $ssh_key->all();
+echo json_encode($res, JSON_PRETTY_PRINT);
 ```
 
 
@@ -584,6 +660,24 @@ echo $server->waitFor();
 
 
 
+// Create Block Storage
+$block_storage = $client->blockStorage();
+
+$my_block_storage = [
+    'name' => 'My new block storage',
+    'description' => 'My block storage description',
+    'size' => 40,
+    'server' => $server->id,
+    'datacenter_id' => $server->specs['datacenter_id']
+];
+
+echo "\nCreating block storage...\n";
+$res = $block_storage->create($my_block_storage);
+// Wait for Block Storage to be ready
+echo $block_storage->waitFor();
+
+
+
 // Add the Load Balancer to the New IP
 $add_lb = [
     'ip_id' => $server->first_ip['id'],
@@ -613,6 +707,10 @@ echo $server->waitFor();
 // Cleanup
 echo "\nEverything looks good!\n";
 echo "\nLet's clean up the mess we just made.\n";
+
+echo "\nDeleting block storage...\n";
+$block_storage->delete();
+echo "Success!\n";
 
 echo "\nDeleting server...\n";
 $server->delete();

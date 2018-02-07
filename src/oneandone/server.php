@@ -69,7 +69,8 @@ class Server {
             'load_balancer_id' => null,
             'monitoring_policy_id' => null,
             'rsa_key' => null,
-            'datacenter_id' => null
+            'datacenter_id' => null,
+            'public_key' => null
         ];
 
         // Clean out null values from POST body
