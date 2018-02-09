@@ -10,7 +10,6 @@
   "type": "MY_IMAGE",
   "min_hdd_size": 40,
   "licenses": [],
-  "cloudpanel_id": "ap99AA4_1",
   "state": "DEPLOYING",
   "description": "New image description",
   "hdds": [
@@ -36,7 +35,6 @@
   "type": "MY_IMAGE",
   "min_hdd_size": 40,
   "licenses": [],
-  "cloudpanel_id": "ap99AA4_1",
   "state": "DEPLOYING",
   "description": "New image description",
   "hdds": [

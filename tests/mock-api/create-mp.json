@@ -76,6 +76,5 @@
     "alert_if": "NOT_RUNNING",
     "email_notification": true
   }
-  ],
-  "cloudpanel_id": "mo8962D_3"
+  ]
 }

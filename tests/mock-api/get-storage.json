@@ -3,7 +3,6 @@
   "size": 200,
   "state": "ACTIVE",
   "description": "My shared storage test description",
-  "cloudpanel_id": "vid35780",
   "size_used": "0.00",
   "cifs_path": "\\\\vid35780.pre1.lan\\My shared storage test",
   "nfs_path": "vid35780.pre1.lan/:My shared storage test",

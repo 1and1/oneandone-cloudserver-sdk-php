@@ -29,8 +29,7 @@
     "source": "0.0.0.0"
   }
   ],
-  "server_ips": [],
-  "cloudpanel_id": "LB99AA4_1"
+  "server_ips": []
 },
 {
   "id": "B23F1B4F84E983B4FEDD5459E877058B",
@@ -62,7 +61,6 @@
     "source": "0.0.0.0"
   }
   ],
-  "server_ips": [],
-  "cloudpanel_id": "LB99AA4_1"
+  "server_ips": []
 }
 ]

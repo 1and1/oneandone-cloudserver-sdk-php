@@ -105,6 +105,23 @@ class User {
         return json_decode($response->body, true);
 
     }
+  
+  public function getCurrentPermissions() {
+    
+        // Build URL
+        $extension = "/users/current_user_permissions";
+        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+        
+        // Perform Request
+        $response = Requests::get($url, $this->header);
+        
+        // Check response status
+        Utilities::checkResponse($response->body, $response->status_code);
+        
+        // Decode the response and return
+        return json_decode($response->body, true);
+      
+  }
 
     public function modify($args, $user_id = null) {
 

@@ -9,8 +9,7 @@
   "os_image_type": "ISO_OS",
   "type": "ISO",
   "min_hdd_size": 40,
-  "licenses": null,
-  "automatic_installation": false
+  "licenses": null
 },
 {
   "id": "3CE474D95AF5B0777A3DCE3FE0999F50",
@@ -26,8 +25,7 @@
   {
     "name": "Windows 2012 Standard"
   }
-  ],
-  "automatic_installation": true
+  ]
 },
 {
   "id": "FBB637F5B6F24186166F70745E47E8AD",
@@ -43,8 +41,7 @@
   {
     "name": "Windows 2012 Standard"
   }
-  ],
-  "automatic_installation": true
+  ]
 },
 {
   "id": "A8CB64D8A8AD781D0F60FAA7EE9EC125",
@@ -60,7 +57,6 @@
   {
     "name": "Windows 2012 Standard"
   }
-  ],
-  "automatic_installation": true
+  ]
 }
 ]

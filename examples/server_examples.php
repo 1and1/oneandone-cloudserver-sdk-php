@@ -30,6 +30,7 @@ $hdds = [$hdd1];
 $my_server = [
     'name' => 'Example Server',
     'description' => 'Example Desc',
+    'server_type' => 'cloud',
     'hardware' => [
         'vcore' => 1,
         'cores_per_processor' => 1,
@@ -86,6 +87,21 @@ echo json_encode($res, JSON_PRETTY_PRINT);
 $server = $client->server();
 
 $res = $server->getFixed('<FIXED-INSTANCE-ID>');
+echo json_encode($res, JSON_PRETTY_PRINT);
+
+
+# List all baremetal model options
+$server = $client->server();
+
+$res = $server->listBaremetalModels();
+echo json_encode($res, JSON_PRETTY_PRINT);
+
+
+
+# Retrieve information about a baremetal model option
+$server = $client->server();
+
+$res = $server->getBaremetalModel('<MODEL-ID>');
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 
@@ -302,6 +318,18 @@ $action = [
 ];
 
 $res = $server->changeStatus($action, '<SERVER-ID>');
+echo json_encode($res, JSON_PRETTY_PRINT);
+
+# Recovery reboot a server
+$server = $client->server();
+
+$action = [
+    'method' => 'SOFTWARE',
+    'recovery_mode' => true,
+    'recovery_image_id' => '<RECOVERY-IMAGE-ID>'
+];
+
+$res = $server->recoveryReboot($action, '<SERVER-ID>');
 echo json_encode($res, JSON_PRETTY_PRINT);
 
 

@@ -1,10 +1,10 @@
 {
   "id": "4B86A3ACC4CEB7A89E012E49FC17F312",
-  "cloudpanel_id": "FE7ED7D",
   "name": "My server",
   "description": "My server description",
   "creation_date": "2015-05-07T08:25:37+00:00",
   "first_password": "Nm4gP97xSw",
+  "server_type":"cloud",
   "status": {
     "state": "DEPLOYING",
     "percent": 20
