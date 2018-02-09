@@ -25,6 +25,8 @@
 - [Ping Auth](#ping-auth)
 - [VPN's](#vpn)
 - [Roles](#roles)
+- [Block Storages](#block-storages)
+- [SSH Keys](#ssh-keys)
 
 
 
@@ -2670,4 +2672,170 @@ $res = $role->clone($name);
 OR
 
 $res = $role->clone($name, '<ROLE-ID>');
+```
+
+
+
+
+# <a name="block-storages"></a>Block Storages
+
+Get started by instantiating a `BlockStorage` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$block_storage = $client->blockStorage();
+```
+
+**List all block storages:**
+
+```
+$res = $block_storage->all();
+```
+
+
+**Returns information about a block storage:**
+
+```
+$res = $block_storage->get();
+
+OR
+
+$res = $block_storage->get('<BLOCK-STORAGE-ID>');
+```
+
+
+**Create a block storage:**
+
+*Note:* `size` must be a multiple of `10`
+
+```
+$args = [
+    'name' => 'Test Block Storage',
+    'description' => 'Test Desc',
+    'size' => 40,
+    'datacenter_id' => '<DATACENTER-ID>'
+];
+
+$res = $block_storage->create($args);
+```
+
+
+**Attach block storage to a server:**
+
+```
+$res = $block_storage->attachBlockStorage('<SERVER-ID>');
+
+OR
+
+$res = $block_storage->attachBlockStorage('<SERVER-ID>', '<BLOCK-STORAGE-ID>');
+```
+
+
+**Modify a block storage:**
+
+```
+$args = [
+    'name' => 'New Name',
+    'description' => 'New Desc',
+];
+
+$res = $block_storage->modify($args);
+
+OR
+
+$res = $block_storage->modify($args, '<BLOCK-STORAGE-ID>');
+```
+
+
+**Delete a block storage:**
+
+```
+$res = $block_storage->delete();
+
+OR
+
+$res = $block_storage->delete('<BLOCK-STORAGE-ID>');
+```
+
+
+**Detach storage from a server:**
+
+```
+$res = $block_storage->detachBlockStorage();
+
+OR
+
+$res = $block_storage->detachBlockStorage('<BLOCK-STORAGE-ID>');
+```
+
+
+
+# <a name="ssh-keys"></a>SSH Keys
+
+Get started by instantiating an `SshKey` object:
+
+```
+$client = new OneAndOne('<API-TOKEN>');
+
+$ssh_key = $client->sshKey();
+```
+
+
+
+**List all SSH Keys:**
+
+```
+$res = $ssh_key->all();
+```
+
+
+**Retrieve a single SSH Key:**
+
+```
+$res = $ssh_key->get();
+
+OR
+
+$res = $ssh_key->get('<SSH-KEY-ID>');
+```
+
+
+**Create an SSH Key:**
+
+```
+$args = [
+    'name' => 'Example SSH Key',
+    'description' => 'Test Description',
+    'public_key' => '<PUBLIC-KEY>'
+];
+
+$res = $ssh_key->create($args);
+```
+
+
+**Modify an SSH Key:**
+
+```
+$args = [
+    'name' => 'New Name',
+    'description' => 'New Description'
+];
+
+$res = $vpn->modify($args);
+
+OR
+
+$res = $ssh_key->modify($args, '<VPN-ID>');
+```
+
+
+**Delete an SSH Key:**
+
+```
+$res = $ssh_key->delete();
+
+OR
+
+$res = $ssh_key->delete('<SSH-KEY-ID>');
 ```

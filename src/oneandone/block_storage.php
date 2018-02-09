@@ -4,13 +4,13 @@ namespace src\oneandone;
 
 use Requests;
 
-class Image {
+class BlockStorage {
 
     protected $api_token;
     protected $header;
     public $id;
     public $specs;
-    const BASE_ENDPOINT = '/images';
+    const BASE_ENDPOINT = '/block_storages';
 
     // Constructor
     public function __construct($token, $header) {
@@ -20,7 +20,7 @@ class Image {
 
     }
 
-    // Image methods
+    // Block Storage methods
     public function all($params = []) {
 
         // Build query parameter object
@@ -50,19 +50,18 @@ class Image {
 
         // Build POST body
         $args += [
-            'server_id' => null,
             'name' => null,
             'description' => null,
-            'frequency' => null,
-            'num_images' => null,
-            'source' => null,
-            'url' => null,
-            'os_id' => null,
-            'type' => null,
+            'size' => null,
+            'server' => null,
+            'datacenter_id' => null
         ];
 
+        // Clean out null values from POST body
+        $body = Utilities::cleanArray($args);
+
         // Encode the POST body
-        $data = json_encode($args);
+        $data = json_encode($body);
 
         // Build URL
         $url = Utilities::buildURL(self::BASE_ENDPOINT);
@@ -76,7 +75,7 @@ class Image {
         // Decode the response
         $json = json_decode($response->body, true);
 
-        // Store image ID and response body for later use
+        // Store block storage ID and response body for later use
         $this->specs = $json;
         $this->id = $json['id'];
 
@@ -84,11 +83,11 @@ class Image {
 
     }
 
-    public function get($image_id = null) {
+    public function get($block_storage_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($block_storage_id) {
+            $uri = $block_storage_id;
         }else{
             $uri = $this->id;
         }
@@ -108,11 +107,11 @@ class Image {
 
     }
 
-    public function modify($args, $image_id = null) {
+    public function modify($args, $block_storage_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($block_storage_id) {
+            $uri = $block_storage_id;
         }else{
             $uri = $this->id;
         }
@@ -120,8 +119,7 @@ class Image {
         // Build PUT body
         $args += [
             'name' => null,
-            'description' => null,
-            'frequency' => null
+            'description' => null
         ];
 
         // Clean out null values from PUT body
@@ -140,17 +138,16 @@ class Image {
         // Check response status
         Utilities::checkResponse($response->body, $response->status_code);
 
-        // Decode the response and return
+        // Decode the response
         return json_decode($response->body, true);
 
     }
 
-
-    public function delete($image_id = null) {
+    public function delete($block_storage_id = null) {
 
         // Build URI
-        if($image_id) {
-            $uri = $image_id;
+        if($block_storage_id) {
+            $uri = $block_storage_id;
         }else{
             $uri = $this->id;
         }
@@ -170,25 +167,80 @@ class Image {
 
     }
 
+    public function attachBlockStorage($server_id, $block_storage_id = null) {
+
+        // Build URI
+        if($block_storage_id) {
+            $uri = $block_storage_id;
+        }else{
+            $uri = $this->id;
+        }
+
+        // Build POST body
+        $body = [
+            'server_id' => $server_id
+        ];
+
+        // Encode the POST body
+        $data = json_encode($body);
+
+        // Build URL
+        $extension = "/$uri/server";
+        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+
+        // Perform Request
+        $response = Requests::post($url, $this->header, $data);
+
+        // Check response status
+        Utilities::checkResponse($response->body, $response->status_code);
+
+        // Decode the response and return
+        return json_decode($response->body, true);
+
+    }
+
+    public function detachBlockStorage($block_storage_id = null) {
+
+        // Build URI
+        if($block_storage_id) {
+            $uri = $block_storage_id;
+        }else{
+            $uri = $this->id;
+        }
+
+        // Build URL
+        $extension = "/$uri/server";
+        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+
+        // Perform Request
+        $response = Requests::delete($url, $this->header);
+
+        // Check response status
+        Utilities::checkResponse($response->body, $response->status_code);
+
+        // Decode the response and return
+        return json_decode($response->body, true);
+
+    }
 
     public function waitFor($timeout = 25, $interval = 15) {
 
         // Set counter for timeout
         $counter = 0;
 
-        // Check initial status and save server state
+        // Check initial status and save block storage state
         $initial_response = $this->get();
-        $image_state = $initial_response['state'];
+        $block_storage_state = $initial_response['state'];
 
         // Keep polling the server's state until good
-        while(!in_array($image_state, GOOD_STATES)) {
+        while(!in_array($block_storage_state, GOOD_STATES)) {
 
-            // Wait 60 seconds before polling again
+            // Wait interval in seconds before polling again
             sleep($interval);
 
-            // Check server state again
+            // Check block storage state again
             $current_response = $this->get();
-            $image_state = $current_response['state'];
+            $block_storage_state = $current_response['state'];
 
             // Iterate counter and check for timeout
             $counter++;
@@ -200,7 +252,6 @@ class Image {
         }
 
         return "duration => $counter";
-
 
     }
 

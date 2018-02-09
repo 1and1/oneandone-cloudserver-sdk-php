@@ -72,6 +72,7 @@ class Server {
             'rsa_key' => null,
             'datacenter_id' => null,
             'server_type' => 'cloud'
+            'public_key' => null
         ];
 
         // Clean out null values from POST body
