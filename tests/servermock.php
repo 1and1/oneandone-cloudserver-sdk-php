@@ -58,6 +58,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
                 'ram' => 1,
                 'hdds' => $hdds
             ],
+            'server_type' => 'cloud',
             'appliance_id' => '07C170D67C8EC776933FCFF1C299C1C5'
         ];
 
@@ -65,6 +66,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals($res['id'], '4B86A3ACC4CEB7A89E012E49FC17F312');
+        $this->assertEquals($res['server_type'], 'cloud');
 
     }
 
@@ -163,6 +165,42 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($res['id'], '8C626C1A7005D0D1F527143C413D461E');
 
     }
+  
+  public function testListBaremetalModels() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('tests/mock-api/list-baremetal-models.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('listBaremetalModels')
+        ->willReturn($data);
+    
+    // Perform call
+    $res = $this->stub->listBaremetalModels();
+    
+    // Assert
+    $this->assertEquals($res[0]['id'], '8C626C1A7005D0D1F527143C413D461E');
+    
+  }
+  
+  public function testGetBaremetalModel() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('tests/mock-api/get-baremetal-model.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('getBaremetalModel')
+        ->willReturn($data);
+    
+    // Perform call
+    $res = $this->stub->getBaremetalModel('8C626C1A7005D0D1F527143C413D461E');
+    
+    // Assert
+    $this->assertEquals($res['id'], '8C626C1A7005D0D1F527143C413D461E');
+    
+  }
 
     public function testHardware() {
 
@@ -443,25 +481,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testRemoveFirewall() {
-
-        // Read mock JSON data
-        $file = file_get_contents('tests/mock-api/remove-ip-fp.json');
-        $data = json_decode($file, true);
-
-        // Create stub
-        $this->stub->method('removeFirewall')
-             ->willReturn($data);
-
-        // Perform call
-        $res = $this->stub->removeFirewall('01D4A802798AB77AA72DA2D05E1379E1',
-            '39AA65F5D5B02FA02D58173094EBAF95');
-
-        // Assert
-        $this->assertEquals($res['ips'][0]['firewall_policy'], null);
-
-    }
-
     public function testAddFirewall() {
 
         // Read mock JSON data
@@ -596,8 +615,34 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($res['status']['state'], 'POWERING_OFF');
 
     }
-
-    public function testDvd() {
+  
+  public function testRecoveryReboot() {
+    
+    // Read mock JSON data
+    $file = file_get_contents('tests/mock-api/change-server-status.json');
+    $data = json_decode($file, true);
+    
+    // Create stub
+    $this->stub->method('RecoveryReboot')
+        ->willReturn($data);
+    
+    // Perform call
+    $action = [
+        'method' => 'SOFTWARE',
+        'recovery_mode' => true,
+        'recovery_image_id' => '81504C620D98BCEBAA5202D145203B4B'
+    ];
+    
+    $res = $this->stub->recoveryReboot($action,
+        '39AA65F5D5B02FA02D58173094EBAF95');
+    
+    // Assert
+    $this->assertEquals($res['status']['state'], 'POWERING_OFF');
+    
+  }
+  
+  
+  public function testDvd() {
 
         // Read mock JSON data
         $file = file_get_contents('tests/mock-api/get-server-dvd.json');

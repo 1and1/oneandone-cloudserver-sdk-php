@@ -169,6 +169,13 @@ class OneAndOne {
         return new ServerAppliance($this->api_token, $this->header);
 
     }
+  
+  // Recovery Appliance Class Init
+    public function recoveryAppliance() {
+    
+        return new RecoveryAppliance($this->api_token, $this->header);
+    
+    }
 
     // Dvd Class Init
     public function dvd() {

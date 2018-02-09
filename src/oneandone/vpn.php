@@ -164,7 +164,7 @@ class Vpn {
     }
 
 
-    public function downloadConfig($vpn_id = null) {
+    public function downloadConfig($vpn_id = null, $filepath) {
 
         // Build URI
         if($vpn_id) {
@@ -182,10 +182,33 @@ class Vpn {
 
         // Check response status
         Utilities::checkResponse($response->body, $response->status_code);
+        
+        //write output to zip file
+        $this->base64_to_file(json_decode($response->body, true)['config_zip_file'],$filepath .= ".zip");
 
         // Decode the response and return
         return json_decode($response->body, true);
 
+    }
+  
+    function base64_to_file($base64_string, $output_file) {
+        // open the output file for writing
+        $ifp = fopen( $output_file, 'wb' );
+        
+        // split the string on commas
+        // $data[ 0 ] == "data:image/png;base64"
+        // $data[ 1 ] == <actual base64 string>
+        $data = explode( ',', $base64_string );
+        
+        $decoded_string=base64_decode( $data[ 0 ] );
+        
+        // we could add validation here with ensuring count( $data ) > 1
+        fwrite( $ifp, $decoded_string );
+        
+        // clean up the file resource
+        fclose( $ifp );
+        
+        return $output_file;
     }
 
 

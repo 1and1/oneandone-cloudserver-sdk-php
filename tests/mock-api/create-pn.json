@@ -6,6 +6,5 @@
   "subnet_mask": null,
   "state": "CONFIGURING",
   "creation_date": "2015-05-04T08:35:12+00:00",
-  "servers": [],
-  "cloudpanel_id": "pn99AA4_2"
+  "servers": []
 }

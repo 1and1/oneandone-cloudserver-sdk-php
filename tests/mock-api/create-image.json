@@ -13,7 +13,6 @@
     "name": "Windows 2012 Standard"
   }
   ],
-  "cloudpanel_id": "ap8962D_253",
   "state": "DEPLOYING",
   "description": "My image 2 description",
   "hdds": [

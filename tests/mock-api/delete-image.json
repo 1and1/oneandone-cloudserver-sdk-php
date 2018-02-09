@@ -9,7 +9,6 @@
   "type": "MY_IMAGE",
   "min_hdd_size": 40,
   "licenses": [],
-  "cloudpanel_id": "ap8962D_248",
   "state": "REMOVING",
   "description": "New image description",
   "hdds": [

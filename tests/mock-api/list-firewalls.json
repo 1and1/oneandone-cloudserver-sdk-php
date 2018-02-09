@@ -22,8 +22,7 @@
     "source": "0.0.0.0"
   }
   ],
-  "server_ips": [],
-  "cloudpanel_id": "FW99AA4_7"
+  "server_ips": []
 },
 {
   "id": "83522FC7DA9172F229E5352C587075B9",
@@ -48,7 +47,6 @@
     "source": "0.0.0.0"
   }
   ],
-  "server_ips": [],
-  "cloudpanel_id": "FW99AA4_7"
+  "server_ips": []
 }
 ]
