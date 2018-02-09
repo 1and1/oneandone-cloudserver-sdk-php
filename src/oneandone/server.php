@@ -55,6 +55,7 @@ class Server {
             'name' => null,
             'description' => null,
             'hardware' => [
+                'baremetal_model_id' => null,
                 'fixed_instance_size_id' => null,
                 'vcore' => null,
                 'cores_per_processor' => null,
@@ -70,6 +71,7 @@ class Server {
             'monitoring_policy_id' => null,
             'rsa_key' => null,
             'datacenter_id' => null,
+            'server_type' => 'cloud',
             'public_key' => null
         ];
 
@@ -230,6 +232,43 @@ class Server {
         return json_decode($response->body, true);
 
     }
+  
+  public function listBaremetalModels() {
+    
+    // Build URL
+    $extension = '/baremetal_models';
+    $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+    
+    // Perform Request
+    $response = Requests::get($url, $this->header);
+    
+    // Check response status
+    Utilities::checkResponse($response->body, $response->status_code);
+    
+    // Decode the response and return
+    return json_decode($response->body, true);
+    
+  }
+  
+  public function getBaremetalModel($model_id) {
+    
+    // Build URI
+    $uri = $model_id;
+    
+    // Build URL
+    $extension = "/baremetal_models/$uri";
+    $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+    
+    // Perform Request
+    $response = Requests::get($url, $this->header);
+    
+    // Check response status
+    Utilities::checkResponse($response->body, $response->status_code);
+    
+    // Decode the response and return
+    return json_decode($response->body, true);
+    
+  }
 
     public function hardware($server_id = null) {
 
@@ -631,30 +670,6 @@ class Server {
 
     }
 
-    public function removeFirewall($ip_id = null, $server_id = null) {
-
-        // Build URI
-        if($server_id) {
-            $uri = $server_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build URL
-        $extension = "/$uri/ips/$ip_id/firewall_policy";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::delete($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
     public function addFirewall($args, $server_id = null) {
 
         // Build URI
@@ -827,6 +842,41 @@ class Server {
         return json_decode($response->body, true);
 
     }
+  
+  public function recoveryReboot($args, $server_id = null) {
+    
+    // Build URI
+    if($server_id) {
+      $uri = $server_id;
+    }else{
+      $uri = $this->id;
+    }
+    
+    // Build PUT body
+    $args += [
+        'action' => 'REBOOT',
+        'method' => null,
+        'recovery_mode' => true,
+        'recovery_image_id' => null
+    ];
+    
+    // Encode the PUT body
+    $data = json_encode($args);
+    
+    // Build URL
+    $extension = "/$uri/status/action";
+    $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
+    
+    // Perform Request
+    $response = Requests::put($url, $this->header, $data);
+    
+    // Check response status
+    Utilities::checkResponse($response->body, $response->status_code);
+    
+    // Decode the response and return
+    return json_decode($response->body, true);
+    
+  }
 
     public function dvd($server_id = null) {
 

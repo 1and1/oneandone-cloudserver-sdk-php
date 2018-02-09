@@ -1,0 +1,36 @@
+[
+  {
+    "name": "baremetal_1_name",
+    "id": "8C626C1A7005D0D1F527143C413D461E",
+    "hardware": {
+      "cores": 1,
+      "cores_per_processor": 4,
+      "ram": 16,
+      "unit": "GB",
+      "hdds": [
+        {
+          "size": 480,
+          "unit": "GB",
+          "is_main": true
+        }
+      ]
+    }
+  },
+  {
+    "name": "baremetal_2_name",
+    "id": "8C626C1A7005D0D1F5271434563D461A",
+    "hardware": {
+      "cores": 1,
+      "cores_per_processor": 4,
+      "ram": 64,
+      "unit": "GB",
+      "hdds": [
+        {
+          "size": 800,
+          "unit": "GB",
+          "is_main": true
+        }
+      ]
+    }
+  }
+]

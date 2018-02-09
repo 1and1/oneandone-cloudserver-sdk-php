@@ -47,7 +47,10 @@ class ImageTest extends PHPUnit_Framework_TestCase
             'name' => 'Example Image',
             'description' => 'Example Desc',
             'frequency' => 'ONCE',
-            'num_images' => 1
+            'num_images' => 1,
+            'source' => 'iso',
+            'url' => 'source of the image url',
+            'type' => 'os'
         ];
 
         $res = $this->stub->create($specs);

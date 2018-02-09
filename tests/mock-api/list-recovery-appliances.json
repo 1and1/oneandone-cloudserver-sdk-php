@@ -1,0 +1,28 @@
+[
+  {
+    "id": "81504C620D98BCEBAA5202D145203B4B",
+    "name": "Recovery image name",
+    "available_datacenters": [
+      "DA41201B4A006EDE6DA62A5A62A658E7",
+      "47FA5A2D251AE57935E30F9D5AB4F817",
+      "7C5FA1D21B98DE39D7516333AAB7DA54"
+    ],
+    "os_family": "Linux",
+    "os": "CentOS",
+    "os_version": "CentOS 7",
+    "architecture": 64
+  },
+  {
+    "id": "81504C620D98BCEB5646987545203B42",
+    "name": "Recovery image name",
+    "available_datacenters": [
+      "DA41201B4A006EDE6DA62A5A62A658E7",
+      "47FA5A2D251AE57935E30F9D5AB4F817",
+      "7C5FA1D21B98DE39D7516333AAB7DA54"
+    ],
+    "os_family": "Windows",
+    "os": "Windows",
+    "os_version": "Windows 2012",
+    "architecture": 64
+  }
+]
