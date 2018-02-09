@@ -71,7 +71,7 @@ class Server {
             'monitoring_policy_id' => null,
             'rsa_key' => null,
             'datacenter_id' => null,
-            'server_type' => 'cloud'
+            'server_type' => 'cloud',
             'public_key' => null
         ];
 
@@ -661,30 +661,6 @@ class Server {
 
         // Perform Request
         $response = Requests::get($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
-    public function removeFirewall($ip_id = null, $server_id = null) {
-
-        // Build URI
-        if($server_id) {
-            $uri = $server_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build URL
-        $extension = "/$uri/ips/$ip_id/firewall_policy";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::delete($url, $this->header);
 
         // Check response status
         Utilities::checkResponse($response->body, $response->status_code);
