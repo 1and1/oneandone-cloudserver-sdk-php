@@ -347,7 +347,7 @@ class Role {
     }
 
 
-    public function clone($name, $role_id = null) {
+    public function cloneRole($name, $role_id = null) {
 
         // Build URI
         if($role_id) {

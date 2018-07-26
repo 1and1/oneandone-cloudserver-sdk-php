@@ -213,30 +213,6 @@ class FirewallPolicy {
 
     }
 
-    public function removeIp($ip_id, $firewall_id = null) {
-
-        // Build URI
-        if($firewall_id) {
-            $uri = $firewall_id;
-        }else{
-            $uri = $this->id;
-        }
-
-        // Build URL
-        $extension = "/$uri/server_ips/$ip_id";
-        $url = Utilities::buildURL(self::BASE_ENDPOINT, $extension);
-
-        // Perform Request
-        $response = Requests::delete($url, $this->header);
-
-        // Check response status
-        Utilities::checkResponse($response->body, $response->status_code);
-
-        // Decode the response and return
-        return json_decode($response->body, true);
-
-    }
-
     public function addIps($ips, $firewall_id = null) {
 
         // Build URI

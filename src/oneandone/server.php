@@ -1210,7 +1210,7 @@ class Server {
         $percent = $initial_response['status']['percent'];
 
         // Keep polling the server's state until good
-        while((!in_array($server_state, GOOD_STATES)) || ($percent != null)) {
+        while((!in_array($server_state, GOOD_STATES)) || ($percent != null) || ($percent !=0)) {
 
             // Wait 60 seconds before polling again
             sleep($interval);
@@ -1230,6 +1230,40 @@ class Server {
             // Parse for first_ip address
             if(count($current_response['ips']) == 1) {
                 $this->first_ip = $current_response['ips'][0];
+            }
+
+        }
+
+        return "duration => $counter";
+
+    }
+
+    public function waitRemoved($timeout = 25, $interval = 15) {
+
+        // Set counter for timeout
+        $counter = 0;
+
+        // Check initial status and save server state
+        $this->get();
+        // Keep polling the server's state until good
+        while(true) {
+
+            // Wait 60 seconds before polling again
+            sleep($interval);
+
+            try {
+                // Check server state again
+                $this->get();
+
+                // Iterate counter and check for timeout
+                $counter++;
+                if ($counter == $timeout) {
+                    echo "The operation timed out after $timeout minutes.\n";
+                    break;
+                }
+            }
+            catch (Exception $ex){
+                return;
             }
 
         }
