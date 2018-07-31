@@ -1212,7 +1212,7 @@ class Server {
         // Keep polling the server's state until good
         while((!in_array($server_state, GOOD_STATES)) || ($percent != null) || ($percent !=0)) {
 
-            // Wait 60 seconds before polling again
+            // Wait $interval in seconds before polling again
             sleep($interval);
 
             // Check server state again
@@ -1248,7 +1248,7 @@ class Server {
         // Keep polling the server's state until good
         while(true) {
 
-            // Wait 60 seconds before polling again
+            // Wait $interval in seconds before polling again
             sleep($interval);
 
             try {
