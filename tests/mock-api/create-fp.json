@@ -9,8 +9,8 @@
   {
     "id": "DA5CC179ED00079AE7DE595F0073D86E",
     "protocol": "TCP",
-    "port_from": 80,
-    "port_to": 80,
+    "port": "80",
+    "action": "allow",
     "source": "0.0.0.0"
   },
   {

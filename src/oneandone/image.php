@@ -183,7 +183,7 @@ class Image {
         // Keep polling the server's state until good
         while(!in_array($image_state, GOOD_STATES)) {
 
-            // Wait 60 seconds before polling again
+            // Wait $interval in seconds before polling again
             sleep($interval);
 
             // Check server state again
