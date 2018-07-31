@@ -44,8 +44,8 @@ class FirewallPolicyTest extends PHPUnit_Framework_TestCase
         // Perform call
         $rule1 = [
             'protocol' => 'TCP',
-            'port_from' => 80,
-            'port_to' => 80,
+            'port' => 80,
+            'action' => "allow",
             'source' => '0.0.0.0'
         ];
 
@@ -254,8 +254,8 @@ class FirewallPolicyTest extends PHPUnit_Framework_TestCase
         // Perform call
         $rule1 = [
             'protocol' => 'TCP',
-            'port_from' => 90,
-            'port_to' => 90,
+            'port' => '90',
+            'allow' => 'allow',
             'source' => '0.0.0.0'
         ];
 

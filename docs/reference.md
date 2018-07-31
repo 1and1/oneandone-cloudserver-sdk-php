@@ -1105,8 +1105,8 @@ $res = $firewall_policy->rule($rule_id, '<FIREWALL-ID>');
 ```
 $rule1 = [
     'protocol' => 'TCP',
-    'port_from' => 80,
-    'port_to' => 80,
+    'port' => 80,
+    'action' => "allow",
     'source' => '0.0.0.0'
 ];
 
@@ -1126,8 +1126,8 @@ $res = $firewall_policy->create($args);
 ```
 $rule1 = [
     'protocol' => 'TCP',
-    'port_from' => 90,
-    'port_to' => 90,
+    'port' => '90',
+    'action' => 'allow',
     'source' => '0.0.0.0'
 ];
 
@@ -2667,11 +2667,11 @@ $res = $role->removeUser('<USER-ID>', '<ROLE-ID>');
 ```
 $name = 'Role Clone'
 
-$res = $role->clone($name);
+$res = $role->cloneRole($name);
 
 OR
 
-$res = $role->clone($name, '<ROLE-ID>');
+$res = $role->cloneRole($name, '<ROLE-ID>');
 ```
 
 
